@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap CSS -->
+	<link href="../../boot/css/bootstrap.css" rel="stylesheet" >
+	
+	<!-- 제이쿼리 3.6 -->
+	<script type="text/javascript" src="../../boot/js/jquery3.6/jquery-3.6.0.js"></script>
+	
+	<!-- Bootstrap ICON CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+	
+	
+	
+	<link rel="stylesheet" type="text/css" href="../../boot/css/header2.css">
+	
+	<style type="text/css">
+		
+		/* 로그인 스타일 */
+		.btn-login {
+		  font-size: 0.9rem;
+		  letter-spacing: 0.05rem;
+		  padding: 0.75rem 1rem;
+		}
+		
+		.btn-google {
+		  color: white !important;
+		  background-color: #ea4335;
+		}
+		
+		.btn-facebook {
+		  color: white !important;
+		  background-color: #3b5998;
+		}
+		
+		#floatingPassword, #floatingInput {
+			font-size: 10px;
+			color: red;
+		}
+		
+		.main-hover:hover {
+			background-color: #0077C0;
+			color: #fff;
+			transition: all 0.5s ease 0s;
+		}
+		
+		
+		.sub-hover:hover {
+			background-color: gray;
+			color: #fff;
+			transition: all 0.5s ease 0s;
+		}
+	</style>
+	
+<title>Marking</title>
+</head>
+<body>
+	 <div class="container">
+	    <div class="row">
+	      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+	        <div class="card border-0 shadow rounded-3 my-5">
+	          <div class="card-body p-4 p-sm-5">
+	            <h2 class="card-title text-center mb-5 fw-bold fs-2">로그인</h2>
+	            <form>
+	              <div class="form-floating mb-3">
+	                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+	                <label for="floatingInput" style="font-size: 12px;">아이디</label>
+	              </div>
+	              <div class="form-floating mb-3">
+	                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+	                <label for="floatingPassword" style="font-size: 12px;">비밀번호(문자,숫자,특수문자 조합 8~15자)</label>
+	              </div>
+	
+	              <div class="form-check mb-3">
+	                <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+	                <label class="form-check-label" for="rememberPasswordCheck">
+	                  아이디 기억하기
+	                </label>
+	              </div>
+	              <div class="d-grid">
+	                <button class="btn btn-dark btn-login text-uppercase fw-bold main-hover" type="submit">
+	                	로그인
+	                </button>
+	              </div>
+	              <hr class="my-4">
+	               <div class="d-grid mb-2">
+	                <button class="btn btn-dark btn-login text-uppercase fw-bold sub-hover" type="submit">
+	                	회원가입
+	                </button>
+	              </div>
+	               <div class="d-grid">
+	                <button class="btn btn-dark btn-login text-uppercase fw-bold sub-hover" type="submit">
+	                	아이디 / 비번 찾기
+	                </button>
+	              </div>
+	              <hr class="my-4">
+	              <div class="d-grid mb-2">
+	                <button class="btn btn-google btn-login text-uppercase fw-bold" type="submit">
+	                  <i class="fab fa-google me-2"></i> 구글 로그인
+	                </button>
+	              </div>
+	              <div class="d-grid">
+	                <button class="btn btn-facebook btn-login text-uppercase fw-bold" type="submit">
+	                  <i class="fab fa-facebook-f me-2"></i> 페이스북 로그인
+	                </button>
+	              </div>
+	            </form>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+
+
+<script src="../../boot/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

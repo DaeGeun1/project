@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.marking.product.mapper.ProductFileMapper">
+	
+	
+	<!-- 게시판 파일 첨부 -->
+	<insert id="insertProductFile" parameterType="kr.co.marking.product.domain.ProductFileDTO">
+	
+		INSERT INTO tbl_product_file (   product_no
+									 	,product_file_name
+										,product_file_uploadpath
+									 	,product_file_uuid
+									 	,product_file_main
+									)
+		
+		VALUES                      ( #{product_no}
+									 ,#{product_file_name}
+									 ,#{product_file_uploadpath}
+									 ,#{product_file_uuid}
+									 ,#{product_file_main}
+									)
+		
+	
+	</insert>
+	
+	
+	<!-- 해당 게시판의 첨부파일 목록 불러오기 (메인, 서비, 전부)-->
+	<select id="selectProductFileList" parameterType="String" resultType="kr.co.marking.product.domain.ProductFileDTO">
+	
+		SELECT 	  product_no
+			     ,product_file_name
+			     ,product_file_uploadpath
+			  	 ,product_file_uuid
+			  	 ,product_file_main
+			  	 
+		FROM      tbl_product_file
+		
+		WHERE     product_no = #{product_no}
+		
+	<if test='product_file_main != ""'>
+		
+		<if test='product_file_main == "Y"'>
+		AND   	  product_file_main = 'Y'
+		</if>
+		
+		<if test='product_file_main == "N"'>
+		AND   	  product_file_main = 'N'
+		</if>
+	
+	</if>
+	
+	</select>
+	
+	<delete id="deleteProductFile" parameterType="String">
+	
+		DELETE 
+		
+		FROM      tbl_product_file	
+		
+		WHERE     product_no = #{product_no}
+	
+	</delete>
+	
+</mapper>

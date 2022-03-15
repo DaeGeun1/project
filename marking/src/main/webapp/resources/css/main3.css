@@ -1,0 +1,1125 @@
+@charset "UTF-8";
+
+
+
+
+/*  몇가지 셋팅값
+      호버 색상 : #0077C0
+       색상 : #2b2f3a
+
+transition: all 0.5s ease 0s;
+
+	#login-title {   //거기 제목
+	width: 100%;
+	text-align: center;
+	line-height: 46px;
+	font-size: 34px;
+	font-weight: 700;
+	letter-spacing: 2px;
+	color: #2b2f3a;
+	position: relative;
+}
+	
+
+
+*/
+
+html,body{
+	width:100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+
+
+
+
+/*탑메뉴 시작입니다.*/
+/*-----------------------------------------------*/
+
+
+
+#first{
+	border-left: 1px solid #cccccc;
+}
+
+
+
+.topmenu {
+  position:fixed;
+  height: 22px;
+  background: white;
+  width: 100%;
+  z-index: 202;
+  top:0px;
+  
+}
+.topmenu ul {
+    text-align : right;  /* 이곳에서 자리 정함*/
+  
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  width: 100%;
+  list-style: none;
+  padding: 0px 0px 3px 0px;   /*ul 늘리기*/   
+  margin: 0 10px 0 0;
+  line-height: 1;
+  
+}
+.topmenu > ul {
+  
+  position: relative;
+  display: block;
+  background: white;   /*색상변경*/
+  width: 100%;
+  z-index: 101;
+}
+
+
+
+
+.topmenu:after, .topmenu > ul:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+.topmenu.align-right > ul > li {
+  float: right;
+  
+  
+}
+.topmenu.align-center ul {
+  text-align: center;
+}
+.topmenu.align-center ul ul {
+  text-align: left;
+}
+.topmenu > ul > li {
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  left :0;   /*여기가 li 폭주는곳 알아서 이해되겠징 .... ㅋㅋ*/
+  right : 20px;
+}
+.topmenu > ul > #topmenu-button {
+  display: none;
+}
+.topmenu ul li a {
+  display: block;
+  font-family: Helvetica, sans-serif;
+  text-decoration: none;
+  
+}
+.topmenu > ul > li > a {    /*대분류 카테고리 조작하는 부분*/
+  border-right: 1px solid #cccccc;  
+  
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 20px 5px 20px;
+  color: black;                /*대분류 색상*/
+  text-transform: uppercase;
+  -webkit-transition: color 0.25s ease-out;
+  -moz-transition: color 0.25s ease-out;
+  -ms-transition: color 0.25s ease-out;
+  -o-transition: color 0.25s ease-out;
+  transition: color 0.25s ease-out;
+  
+}
+.topmenu > ul > li.topsub > a {
+  padding-right: 32px;
+  
+}
+.topmenu > ul > li:hover > a {     /*대분류 호버후 작동*/
+  color: black;
+   -webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+   transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+}
+.topmenu li.topsub::after {
+  display: block;
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.topmenu > ul > li.topsub::after {   /*화살표래*/
+  right: 10px;
+  top: 7px;
+  border: 5px solid transparent;
+  border-top-color: #7a8189;
+}
+.topmenu > ul > li:hover::after {
+  border-top-color: #ffffff;
+}
+.topmenu ul ul {
+	text-align:left;
+  position: absolute;
+  left: -9999px;
+  top: 70px;
+  opacity: 0;
+  -webkit-transition: opacity .3s ease, top .25s ease;
+  -moz-transition: opacity .3s ease, top .25s ease;
+  -ms-transition: opacity .3s ease, top .25s ease;
+  -o-transition: opacity .3s ease, top .25s ease;
+  transition: opacity .3s ease, top .25s ease;
+  z-index: 1000;
+ 
+}
+.topmenu ul ul ul {
+	
+  top: 37px;
+  padding-left: 5px;
+}
+.topmenu ul ul li {
+  position: relative;
+}
+.topmenu > ul > li:hover > ul {   /*호버후 창 높이 조절*/
+  left: auto;
+  top: 23px;
+  opacity: 1;
+}
+.topmenu.align-right > ul > li:hover > ul {
+  left: auto;
+  right: 0;
+  opacity: 1;
+}
+.topmenu ul ul li:hover > ul {
+  left: 170px;
+  top: 0;
+  opacity: 1;
+}
+.topmenu.align-right ul ul li:hover > ul {
+  left: auto;
+  right: 170px;
+  top: 0;
+  opacity: 1;
+  padding-right: 5px;
+}
+.topmenu ul ul li a {   /*소분류*/
+  width: 130px;
+  border-bottom: 1px solid #eeeeee;
+  padding: 10px 20px;
+  font-size: 12px;
+  color: #9ea2a5;
+  background: #ffffff;
+  -webkit-transition: all .35s ease;
+  -moz-transition: all .35s ease;
+  -ms-transition: all .35s ease;
+  -o-transition: all .35s ease;
+  transition: all .35s ease;
+}
+.topmenu.align-right ul ul li a {
+  text-align: right;
+}
+.topmenu ul ul li:hover > a {
+  background: #f2f2f2;
+  color: #8c9195;
+}
+.topmenu ul ul li:last-child > a, .topmenu ul ul li.last > a {
+  border-bottom: 0;
+}
+.topmenu > ul > li > ul::after {
+  content: '';
+  border: 6px solid transparent;
+  width: 0;
+  height: 0;
+  border-bottom-color: #ffffff;
+  position: absolute;
+  top: -12px;
+  left: 30px;
+}
+.topmenu.align-right > ul > li > ul::after {
+  left: auto;
+  right: 30px;
+}
+.topmenu ul ul li.topsub::after {
+  border: 4px solid transparent;
+  border-left-color: #9ea2a5;
+  right: 10px;
+  top: 12px;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  -webkit-transition: -webkit-transform 0.2s ease, right 0.2s ease;
+}
+.topmenu.align-right ul ul li.topsub::after {
+  border-left-color: transparent;
+  border-right-color: #9ea2a5;
+  right: auto;
+  left: 10px;
+}
+.topmenu ul ul li.topsub:hover::after {
+  border-left-color: #ffffff;
+  right: -5px;
+  -webkit-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.topmenu.align-right ul ul li.topsub:hover::after {
+  border-right-color: #ffffff;
+  border-left-color: transparent;
+  left: -5px;
+  -webkit-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+/*-----------------------------------------------*/
+/*탑메뉴 종료입니다.*/
+
+
+/*가운데 로고 시작하겠습니다.*/
+/*-----------------------------------------------*/
+
+
+#logo{
+	position: fixed;
+	text-align: center;
+	
+	width: 100%;
+	top : 25px;
+	    /*선 지워버리깅*/
+	height:92px;
+	background-color : white;
+	
+	z-index: 100;
+}
+
+
+
+
+/*---------------------------------------------------------------------*/
+/*가운데 로고 종료입니다*/
+
+
+/*메인메뉴바 스타일입니다.*/
+/*---------------------------------------------------------------------*/
+.mainmenu {
+  position: fixed;
+  height: 40px;
+  background: white;
+  width: 100%;
+  top: 113px;
+  z-index: 99;
+  
+}
+.mainmenu ul {
+  text-align: center;
+  list-style: none;
+  padding: 0;
+  line-height: 1;
+  height: 44px;
+ 
+}
+.mainmenu > ul {
+  position: relative;
+  display: block;
+  background: #2b2f3a;
+  width: 100%;
+  z-index: 500;
+}
+.mainmenu:after, .mainmenu > ul:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+.mainmenu.align-right > ul > li {
+  float: right;
+  
+}
+.mainmenu.align-center ul {
+  text-align: center;
+}
+.mainmenu.align-center ul ul {
+  text-align: left;
+}
+.mainmenu > ul > li {
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+.mainmenu > ul > #mainmenu-button {
+  display: none;
+}
+.mainmenu ul li a {
+  display: block;
+  font-family: Helvetica, sans-serif;
+  text-decoration: none; 
+  
+  
+}
+
+.mainmenu > ul > li > a {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 15px 20px;
+  color: #fff;
+  text-transform: uppercase;
+  -webkit-transition: color 0.25s ease-out;
+  -moz-transition: color 0.25s ease-out;
+  -ms-transition: color 0.25s ease-out;
+  -o-transition: color 0.25s ease-out;
+  transition: color 0.25s ease-out;
+}
+.mainmenu > ul > li.mainsub > a {
+  padding-right: 32px;
+}
+.mainmenu > ul > li:hover > a {
+  color: #ffffff;
+}
+.mainmenu li.mainsub::after {
+  display: block;
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.mainmenu > ul > li.mainsub::after {  /*여기가 탑메뉴 화살표*/
+  right: 10px;
+  top: 20px;
+  border: 5px solid transparent;
+  border-top-color: #7a8189;
+}
+.mainmenu > ul > li:hover::after {
+  border-top-color: #ffffff;
+}
+.mainmenu ul ul {
+  position: absolute;
+  left: -9999px;
+  top: 70px;
+  opacity: 0;
+  -webkit-transition: opacity .3s ease, top .25s ease;
+  -moz-transition: opacity .3s ease, top .25s ease;
+  -ms-transition: opacity .3s ease, top .25s ease;
+  -o-transition: opacity .3s ease, top .25s ease;
+  transition: opacity .3s ease, top .25s ease;
+  z-index: 1000;
+}
+.mainmenu ul ul ul {
+  top: 37px;
+  padding-left: 5px;
+}
+.mainmenu ul ul li {
+  position: relative;
+}
+.mainmenu > ul > li:hover > ul {
+  left: auto;
+  top: 44px;
+  opacity: 1;
+}
+.mainmenu.align-right > ul > li:hover > ul {
+  left: auto;
+  right: 0;
+  opacity: 1;
+}
+.mainmenu ul ul li:hover > ul {
+  left: 170px;
+  top: 0;
+  opacity: 1;
+}
+.mainmenu.align-right ul ul li:hover > ul {
+  left: auto;
+  right: 170px;
+  top: 0;
+  opacity: 1;
+  padding-right: 5px;
+}
+.mainmenu ul ul li a {
+  width: 130px;
+  border-bottom: 1px solid #eeeeee;
+  padding: 10px 20px;
+  font-size: 12px;
+  color: #9ea2a5;
+  background: #ffffff;
+  -webkit-transition: all .35s ease;
+  -moz-transition: all .35s ease;
+  -ms-transition: all .35s ease;
+  -o-transition: all .35s ease;
+  transition: all .35s ease;
+}
+.mainmenu.align-right ul ul li a {
+  text-align: right;
+}
+.mainmenu ul ul li:hover > a {
+  background: #f2f2f2;
+  color: #8c9195;
+}
+.mainmenu ul ul li:last-child > a, .mainmenu ul ul li.last > a {
+  border-bottom: 0;
+}
+.mainmenu > ul > li > ul::after {
+  content: '';
+  border: 6px solid transparent;
+  width: 0;
+  height: 0;
+  border-bottom-color: #ffffff;
+  position: absolute;
+  top: -12px;
+  left: 30px;
+}
+.mainmenu.align-right > ul > li > ul::after {
+  left: auto;
+  right: 30px;
+}
+.mainmenu ul ul li.mainsub::after {
+  border: 4px solid transparent;
+  border-left-color: #9ea2a5;
+  right: 10px;
+  top: 12px;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  -webkit-transition: -webkit-transform 0.2s ease, right 0.2s ease;
+}
+.mainmenu.align-right ul ul li.mainsub::after {
+  border-left-color: transparent;
+  border-right-color: #9ea2a5;
+  right: auto;
+  left: 10px;
+}
+.mainmenu ul ul li.mainsub:hover::after {
+  border-left-color: #ffffff;
+  right: -5px;
+  -webkit-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.mainmenu.align-right ul ul li.mainsub:hover::after {
+  border-right-color: #ffffff;
+  border-left-color: transparent;
+  left: -5px;
+  -webkit-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+  .mainmenu {
+    display: none;
+  }
+}
+
+
+/*-------------------------------------------*/
+/*메인메뉴바끝났습니다.*/
+
+
+/*------------------------------------------------*/
+/*슬라이더 시작합니다.*/
+
+/*--------------------------------------------*/
+/*메인사진 슬라이더 끝났어요*/
+
+
+
+
+
+/*푸터의 시작*/
+
+#footer {
+	border-top: 1px solid black;
+}
+
+#footer .footer_menu  ul {
+	text-align: center;
+	padding:10px 0 10px 0;
+	border-bottom: 1px solid black;
+	margin: 0;
+}
+
+#footer .footer_menu ul li {
+	list-style: none;
+	display: inline-block;
+	margin: 0 3% 0 3%;
+}
+
+#footer #footer_main ul li {
+	list-style: none;
+	display: inline-block;
+}
+
+#footer #footer_main ul {
+	padding: 0;
+}
+
+#footer .footer_menu ul li a {
+	text-decoration: none;
+	color: black;
+}
+
+#footer #footer_main {
+	display: flex;
+	flex-wrap: wrap;
+	text-align: center;
+}
+
+#footer .footer_main1, #footer .footer_main2, #footer .footer_main3 {
+	flex: 1 1 260px;;
+}
+
+#footer .copyright {
+	background-color: black;
+	color: white;
+	text-align: center;
+}
+/*푸터의 종료*/
+
+
+
+
+
+
+
+/*아래 호버버튼? 시작*/
+/*--------------------------------------------*/
+.menu-item,
+.menu-open-button {
+   background: #B0E2DF;
+   border-radius: 100%;
+   width: 40px;                 /*버튼 크기 설정 */
+   height: 40px;
+   margin-left: -40px;
+   position: absolute;
+   color: #fff;
+   text-align: center;
+   line-height: 40px;       /*아이콘 크기 설정 여기도 해줭*/
+   -webkit-transform: translate3d(0, 0, 0);
+   transform: translate3d(0, 0, 0);
+   -webkit-transition: -webkit-transform ease-out 200ms;
+   transition: -webkit-transform ease-out 200ms;
+   transition: transform ease-out 200ms;
+   transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
+}
+
+.menu-open {
+   display: none;
+}
+
+.lines {
+   width: 25px;
+   height: 3px;
+   background: #596778;
+   display: block;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   margin-left: -12.5px;
+   margin-top: -1.5px;
+   -webkit-transition: -webkit-transform 200ms;
+   transition: -webkit-transform 200ms;
+   transition: transform 200ms;
+   transition: transform 200ms, -webkit-transform 200ms;
+}
+
+.line-1 {
+   -webkit-transform: translate3d(0, -8px, 0);
+   transform: translate3d(0, -8px, 0);
+}
+
+.line-2 {
+   -webkit-transform: translate3d(0, 0, 0);
+   transform: translate3d(0, 0, 0);
+}
+
+.line-3 {
+   -webkit-transform: translate3d(0, 8px, 0);
+   transform: translate3d(0, 8px, 0);
+}
+
+.menu-open:checked + .menu-open-button .line-1 {
+   -webkit-transform: translate3d(0, 0, 0) rotate(45deg);
+   transform: translate3d(0, 0, 0) rotate(45deg);
+}
+
+.menu-open:checked + .menu-open-button .line-2 {
+   -webkit-transform: translate3d(0, 0, 0) scale(0.1, 1);
+   transform: translate3d(0, 0, 0) scale(0.1, 1);
+}
+
+.menu-open:checked + .menu-open-button .line-3 {
+   -webkit-transform: translate3d(0, 0, 0) rotate(-45deg);   /*삼선 회전구간*/
+   transform: translate3d(0, 0, 0) rotate(-45deg);
+}
+
+.fixbuttommenu {      /*위치 조정*/
+   margin: auto;
+   position: fixed;
+   top: 80%;
+   bottom: 0;
+   left: 90%;
+   right: 0;
+   width: 80px;
+   height: 80px;
+  
+   box-sizing: border-box;
+   font-size: 15px;
+   z-index:100000;
+}
+
+
+.menu-item {
+   transition: all 0.1s ease 0s;
+} 
+
+.menu-item:hover {
+   background: #EEEEEE;
+   color: #3290B1;
+}
+/*돌아오는 속도*/
+.menu-item:nth-child(3) {
+   -webkit-transition-duration: 180ms;
+   transition-duration: 180ms;
+}
+
+.menu-item:nth-child(4) {
+   -webkit-transition-duration: 180ms;
+   transition-duration: 180ms;
+}
+
+.menu-item:nth-child(5) {
+   -webkit-transition-duration: 180ms;
+   transition-duration: 180ms;
+}
+
+.menu-item:nth-child(6) {
+   -webkit-transition-duration: 180ms;
+   transition-duration: 180ms;
+}
+
+.menu-item:nth-child(7) {
+   -webkit-transition-duration: 180ms;
+   transition-duration: 180ms;
+}
+
+.menu-item:nth-child(8) {
+   -webkit-transition-duration: 180ms;
+   transition-duration: 180ms;
+}
+
+.menu-item:nth-child(9) {
+   -webkit-transition-duration: 180ms;
+   transition-duration: 180ms;
+}
+
+.menu-open-button {
+   z-index: 2;
+   -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+   transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+   -webkit-transition-duration: 400ms;
+   transition-duration: 400ms;
+   -webkit-transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+   transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+   cursor: pointer;
+   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+}
+
+.menu-open-button:hover {
+   -webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+   transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+}
+
+/*반응했을때 크기 조절*/
+.menu-open:checked + .menu-open-button {
+   -webkit-transition-timing-function: linear;
+   transition-timing-function: linear;
+   -webkit-transition-duration: 200ms;
+   transition-duration: 200ms;
+   -webkit-transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+   transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+}
+
+.menu-open:checked ~ .menu-item {
+   -webkit-transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+   transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+   -webkit-transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+   transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+}
+/*여기가 흩어지는 위치 잡는 곳이다 어찌하냥 .... */
+.menu-open:checked ~ .menu-item:nth-child(3) {
+   transition-duration: 180ms;
+   -webkit-transition-duration: 180ms;
+   -webkit-transform: translate3d(0.0209025px, -52.499985px, 0);
+   transform: translate3d(0.0209025px, -52.499985px, 0);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(4) {
+   transition-duration: 280ms;
+   -webkit-transition-duration: 280ms;
+   -webkit-transform: translate3d(45.4733px, -26.23793px, 0);
+   transform: translate3d(45.4733px, -26.23793px, 0);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(5) {
+   transition-duration: 380ms;
+   -webkit-transition-duration: 380ms;
+   -webkit-transform: translate3d(45.4733px, 26.23793px, 0);
+   transform: translate3d(45.4733px, 26.23793px, 0);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(6) {
+   transition-duration: 480ms;
+   -webkit-transition-duration: 480ms;
+   -webkit-transform: translate3d(0.0209025px, 52.499985px, 0);
+   transform: translate3d(0.0209025px, 52.499985px, 0);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(7) {
+   transition-duration: 580ms;
+   -webkit-transition-duration: 580ms;
+   -webkit-transform: translate3d(-45.51503px, 26.31032px, 0);
+   transform: translate3d(-45.51503px, 26.31032px, 0);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(8) {
+   transition-duration: 680ms;
+   -webkit-transition-duration: 680ms;
+   -webkit-transform: translate3d(-45.51503px, -26.31032px, 0);
+   transform: translate3d(-45.51503px, -26.31032px, 0);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(9) {
+   transition-duration: 780ms;
+   -webkit-transition-duration: 780ms;
+   -webkit-transform: translate3d(-0.12542px, -52.49985px, 0);
+   transform: translate3d(-0.12542px, -52.49985px, 0);
+}
+
+.blue {
+   background-color: #669AE1;
+   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.blue:hover {
+   color: #669AE1;
+   text-shadow: none;
+}
+
+.green {
+   background-color: #70CC72;
+   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.green:hover {
+   color: #70CC72;
+   text-shadow: none;
+}
+
+.red {
+   background-color: #FE4365;
+   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+  
+}
+
+.red:hover {
+   color: #FE4365;
+   text-shadow: none;
+}
+
+.purple {
+   background-color: #C49CDE;
+   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.purple:hover {
+   color: #C49CDE;
+   text-shadow: none;
+}
+
+.orange {
+   background-color: #FC913A;
+   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.orange:hover {
+   color: #FC913A;
+   text-shadow: none;
+}
+
+.lightblue {
+   background-color: #62C2E4;
+   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.lightblue:hover {
+   color: #62C2E4;
+   text-shadow: none;
+}
+
+.credit {
+   margin: 24px 20px 120px 0;
+   text-align: right;
+   color: #EEEEEE;
+}
+
+.credit a {
+   padding: 8px 0;
+   color: #C49CDE;
+   text-decoration: none;
+   transition: all 0.3s ease 0s;
+}
+
+.credit a:hover {
+   text-decoration: underline;
+}
+
+/*--------------------------------------------*/
+/*아래 호버버튼? 끝*/
+
+
+/*--------------------------------------------------*/
+/*인덱스 html 시작
+		/* 케러셀 */
+
+
+/*인덱스 html 끝 */	
+/*------------------------------------------------*/
+
+
+
+
+
+
+
+/*login.html 시작------------------------------*/
+#login-top {
+	margin-top: 200px;
+	width:100%;
+ 	height: 800px;
+}
+/*로그인 단*/
+.login-container {
+	text-align: center;
+	vertical-align: middle;
+	width: 30%;
+	height:500px;
+	margin: 0 -21% 0 19%;
+	font-family: 'Roboto', sans-serif;
+	min-width: 300px;
+	border: 2px solid #cccccc;
+	padding: 50px 0;
+	float: left;
+	
+}
+
+.login-container hr{
+	margin : 30px 0;
+	
+	border: 1px solid #cccccc;
+}
+#login-title {
+	width: 100%;
+	text-align: center;
+	line-height: 46px;
+	font-size: 34px;
+	font-weight: 700;
+	letter-spacing: 2px;
+	color: #2b2f3a;
+	position: relative;
+}
+
+/*로그인 제목*/
+#login-subtitle {
+	width: 100%;
+	line-height: 46px;
+	font-size: 20px;
+	font-weight: 700;
+	letter-spacing: 2px;
+	color: black;
+	position: relative;
+}
+/*아이디 비번 박스*/
+.login-container #id, .login-container #pwd {
+	width: 230px;
+	height: 30px;
+	position: relative;
+	border: none;
+	border-bottom: 1px solid #cccccc;
+}
+
+.login-container #id:checked, .login-container #pwd:visited{
+	border: red;
+	outline-color: red;
+}
+
+.login-check {
+	display: inline-block;
+	width: 30%;
+	height: 20px;
+}
+
+.wrap {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#login-submit {
+	width: 230px;
+	height: 45px;
+	font-size: 15px;
+	text-transform: uppercase; /*대문자로 표시*/
+	letter-spacing: 2.5px;
+	font-weight: 500;
+	color: white; /*색깔 관련*/
+	background-color: black;
+	border: none;
+	/* border-radius: 45px; */ /*굴곡주기*/
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.5s ease 0s;
+	cursor: pointer;
+	outline: none;
+	margin: 10px 0 10px 0;
+}
+
+#login-submit:hover {
+	
+	background-color: #0077C0;
+	font-size: 20px;
+	color: #fff;
+	/* transform: translateY(-7px);    살짝 올라가는 옵션 */
+}
+
+.login-search {
+	display: inline-block;
+	width: 110px;
+	font-size: 12px;
+	margin: 0 5px;
+	outline: none;
+	border: 1px solid black;
+	background-color: white;
+	cursor: pointer;
+}
+
+.login-search:hover {
+	font-size: 12px;
+	background-color: #cccccc;
+	transition: all 0.5s ease 0s;
+}
+
+#login-join {
+	width: 230px;
+	height: 35px;
+	font-weight: bolder; 
+	color: white;
+	outline: none;
+	background-color: #202020;
+	border: 1px solid black;
+	cursor: pointer;
+}
+
+#login-join:hover {
+	background-color: black;
+	transition: all 0.5s ease 0s;
+}
+/*로그인 css 끝*/
+
+
+/*로그인 인트로 설정*/
+.intro-container{
+	text-align: center;
+	vertical-align: middle;
+	width: 30%;
+	height:500px;
+	margin: 0 0 0 23%;
+	border-left: 1px solid #cccccc;
+	font-family: 'Roboto', sans-serif;
+	min-width: 300px;
+	border: 2px solid #cccccc;
+	padding: 50px 0;
+	float: left;
+}
+
+
+/*소셜로그인 아이콘*/
+.ico-social {
+	margin: 0;
+	padding: 0;
+}
+
+
+
+.ico-social a {
+	display: block;
+	color: #fff;
+	border-radius: 2px;
+	text-align: center;
+}
+
+.ico-social i {
+	width: 40px;
+	height: 40px;
+	font-size: 30px;
+	line-height: 40px;
+}
+
+.ico-social .twitter {
+	background: #55ACEE;
+}
+
+.ico-social .facebook {
+	background: #4B66A1;
+}
+
+.ico-social .kakao {
+	background: #FAE100;
+	color: #3C1E1E !important;
+}
+
+.ico-social .naver {
+	background: #69C860;
+}
+
+.ico-social .google {
+	background: #ff3333;
+}
+
+.ico-social i {
+	margin: 0 20px 0 20px;
+}
+
+/*login.html 끝-------------------------*/
+
+/*-------------------------------------*/
+/* 아이디 찾기 시작*/
+
+
+
+
+/* 아이디 찾기 끝*/
+/*-------------------------------------*/
+
+/*-------------------------------------*/
+/*비번 찾기 시작*/
+
+/*비번 찾기 끝*/
+/*-------------------------------------*/

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.marking.member.mapper.MemberMapper">
+	
+	<resultMap type="kr.co.marking.member.domain.MemberDTO" id="MemberMap">
+ 		<id property="member_id" column="member_id"/>
+ 		<result property="member_id" column="member_id"/>
+ 		<result property="member_password" column="member_password"/>
+ 		<result property="member_name" column="member_name"/>
+ 		<result property="member_tel" column="member_tel"/>
+ 		<result property="member_email" column="member_email"/>
+ 		<result property="member_post" column="member_post"/>
+ 		<result property="member_basicaddress" column="member_basicaddress"/>
+ 		<result property="member_detailaddress" column="member_detailaddress"/>
+ 		<result property="member_registdate" column="member_registdate"/>
+ 		<result property="member_select" column="member_select"/>
+ 		<result property="member_withdraw" column="member_withdraw"/>
+ 		<result property="member_accessdate" column="member_accessdate"/>
+ 		<result property="member_dormant" column="member_dormant"/>
+ 		<collection property="authList" resultMap="authMap"/>
+ 	</resultMap>
+ 	
+ 	<resultMap type="kr.co.marking.member.domain.AuthorityDTO" id="authMap">
+ 		<result property="member_id" column="member_id"/>
+ 		<result property="member_authority" column="member_authority"/>
+ 	</resultMap>
+ 	
+ 	
+ 	<!-- 회원정보 출력 -->
+	<select id="selectMemberInfo" resultMap="MemberMap">
+	
+		SELECT  member.member_id
+			   ,member.member_password
+			   ,member.member_name
+			   ,member.member_tel
+			   ,member.member_email
+			   ,member.member_post
+			   ,member.member_basicaddress
+			   ,member.member_detailaddress
+			   ,member.member_registdate
+			   ,member.member_select
+			   ,member.member_withdraw
+			   ,member.member_accessdate
+			   ,member.member_dormant
+			   ,authority.member_authority
+		
+		FROM   tbl_member member
+ 	    LEFT OUTER JOIN tbl_authority authority
+ 	    ON     member.member_id = authority.member_id
+		WHERE  member.member_id = #{member_id}	   
+	
+	</select>
+	
+	<!-- 해당회원의 권한 출력 -->
+	<select id="selectMemberAuthorities" parameterType="String" resultType="String">
+	
+		SELECT  member_authority
+		
+		FROM    tbl_authority
+		
+		WHERE   member_id = #{member_id}
+	
+	</select>
+	
+	<!-- 회원등록 쿼리 -->
+	<insert id="insertMemberInfo" parameterType="kr.co.marking.member.domain.MemberDTO">
+		
+		INSERT INTO tbl_member  (   member_id
+					   			   ,member_password
+					   			   ,member_name
+					  			   ,member_tel
+					  			   ,member_email
+					   
+					  			   <!-- 일반회원이 가입시  -->
+								   <if test='member_post != "" '>
+								   ,member_post
+								   ,member_basicaddress
+								   ,member_select
+								   </if>
+								   
+								   <!-- 상세주소 입력시 -->
+								   <if test='member_detailaddress != "" '>
+								   ,member_detailaddress
+								   </if>
+					 			)
+		
+		VALUES                  (   #{member_id}
+					               ,#{member_password}
+					               ,#{member_name}
+					               ,#{member_tel}
+					               ,#{member_email}
+				                 
+					               <!-- 일반회원이 가입시  -->
+					               <if test='member_post != "" '>
+					               ,#{member_post}
+					               ,#{member_basicaddress}
+					               ,#{member_select}
+					               </if>
+					   	         	
+					               <if test='member_detailaddress != "" '>
+					               ,#{member_detailaddress}
+					               </if>
+				                 )   
+	</insert>
+	
+	
+	<!-- 일반회원 권한 등록 쿼리 -->
+	<insert id="insertMemberAuthority" parameterType="String">
+		INSERT INTO tbl_authority (   member_id
+					                 ,member_authority
+					               )
+		
+		VALUES 					  (   #{member_id}
+		                             ,'ROLE_MEMBER'
+			                       )   
+	</insert>
+	
+	<!-- 관리자 권한 등록 쿼리 -->
+	<insert id="insertAdminAuthority" parameterType="String">
+		INSERT INTO tbl_authority   (  member_id
+					  				  ,member_authority
+									 )
+		
+		VALUES 						(  #{member_id}
+		            				  ,'ROLE_ADMIN'
+			   						 )   
+	</insert>
+	
+	<!-- 회원정보체크  //  회원정보창 갈때 사용 -->
+	<select id="memberCheck" parameterType="kr.co.marking.member.domain.MemberDTO" resultType="kr.co.marking.member.domain.MemberDTO">
+		SELECT member_id
+		
+		FROM   tbl_member
+		
+		<if test='member_id != null'>
+		WHERE  member_id = #{member_id}
+		</if>
+		
+		<if test='member_email != null'>
+		WHERE  member_email = #{member_email}
+		</if>
+		
+	</select>
+	
+	<!-- 회원정보수정 -->
+	<update id="updateMemberInfo" parameterType="kr.co.marking.member.domain.MemberDTO">
+		UPDATE  tbl_member
+		
+		SET     member_name = #{member_name}
+			   ,member_post = #{member_post}
+			   ,member_basicaddress = #{member_basicaddress}
+			   
+			   <if test='member_detailaddress != "" '>
+			   ,member_detailaddress = #{member_detailaddress}
+			   </if>
+			   
+			   ,member_tel = #{member_tel}
+			   ,member_select = #{member_select}
+		
+		WHERE   member_id = #{member_id}
+	</update>
+	
+	<!-- 회원비밀번호 수정 -->
+	<update id="updateMemberPassword" parameterType="String">
+		UPDATE  tbl_member
+		
+		SET     member_password = #{member_password}
+		
+		WHERE   member_id = #{member_id}
+	</update>
+	
+	<!-- 회원삭제  -->
+	<update id="deleteMember" parameterType="String">
+		
+		UPDATE  tbl_member
+		
+		SET     member_withdraw = 'Y'
+		
+		WHERE   member_id = #{member_id}
+	
+	</update>
+	
+	<!-- 회원 접속날짜 갱신  -->
+	<update id="accessMember" parameterType="String">
+		
+		UPDATE  tbl_member
+		
+		SET     member_accessdate = sysdate
+		
+		WHERE   member_id = #{member_id}
+		
+	</update>
+	
+	<select id="findMember" parameterType="kr.co.marking.member.domain.MemberDTO" resultType="kr.co.marking.member.domain.MemberDTO">
+	
+		SELECT 	member_id
+		
+		FROM   	tbl_member
+		
+		WHERE  	member_name = #{member_name}
+		
+		AND	   	member_email = #{member_email}
+		 
+		<if test='member_id != null'>
+		AND  	member_id = #{member_id}
+		</if>
+		
+	</select>
+	
+	
+</mapper>

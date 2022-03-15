@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.marking.board.mapper.BoardMapper">
+	
+	<!-- 해당 종류의 게시판리스트 출력 -->
+	<!-- 서브쿼리 사용하고 게시판에서 NO값을 뿌리는것이 아닌 ROWNUM값을 뿌리기 위한 쿼리 중간중간 비는 숫자가 없음-->
+	<select id="selectBoardList" parameterType="Map" resultType="kr.co.marking.board.domain.BoardDTO">
+		
+		 SELECT     board_rownum
+				   ,board_no
+				   ,board_title	
+				   ,board_contents
+				   ,board_registdate
+				   ,board_updatedate
+				   ,board_deletedate
+				   ,board_viewcount
+				   ,board_kind
+				   ,board_delete
+				   ,member_id
+				   ,member_name
+				   
+		 FROM      (SELECT     rownum board_rownum
+							  ,board_no
+						      ,board_title	
+							  ,board_contents
+							  ,board_registdate
+							  ,board_updatedate
+							  ,board_deletedate
+							  ,board_viewcount
+							  ,board_kind
+							  ,board_delete
+							  ,member_id
+							  ,member_name
+							  
+					FROM	  (SELECT    b.board_no
+								 		,b.board_title	
+								 		,b.board_contents
+								 		,b.board_registdate
+								 		,b.board_updatedate
+								 		,b.board_deletedate
+								 		,b.board_viewcount
+								 		,b.board_kind
+								 		,b.board_delete
+								 		,b.member_id
+								 		,m.member_name		
+				
+							   FROM 	 tbl_board b
+								        ,tbl_member m
+				
+							   WHERE     board_kind = #{bDto.board_kind}
+				
+							   AND       board_delete = 'N'
+				
+							   AND       b.member_id = m.member_id
+						
+						 	  <include refid="search"></include>
+						
+							  ORDER BY  board_no ASC
+							  )	  
+					)
+		
+		<![CDATA[
+		WHERE 			 board_rownum <= #{total} -  ((#{criteria.pageNum} - 1) * #{criteria.amount})
+		
+		AND              board_rownum > #{total} -  ((#{criteria.pageNum}) * #{criteria.amount})
+		]]>
+		ORDER BY board_rownum DESC
+		 
+		
+		 
+		 
+	</select>
+	
+	<!-- 해당 게시판 총 갯수 출력 -->
+	<select id="selectBordTotalCount" parameterType="Map" resultType="int">
+	
+		SELECT COUNT(board_no)
+		
+		FROM   tbl_board b,
+			   tbl_member m
+		
+		WHERE    board_kind = #{bDto.board_kind} 
+		
+		AND      b.member_id = m.member_id
+				
+		AND      board_delete = 'N'
+		<include refid="search"></include>
+	</select>
+	
+	
+	<!-- 게시글 등록 -->
+	<insert id="insertBoard" parameterType="kr.co.marking.board.domain.BoardDTO">
+	
+		INSERT INTO tbl_board(   board_no
+					          	,board_title	
+					          	,board_contents
+					          	,board_kind
+					          	,member_id
+					          )	
+					          
+	    VALUES                (  seq_board_no.NEXTVAL
+	    						,#{board_title}
+	    						,#{board_contents}
+	    						,#{board_kind}
+	    						,#{member_id}
+	    					   )
+	    					   
+	</insert>
+	
+	<select id="selectBoardMaxNo" resultType="String">
+	
+		SELECT	NVL(MAX(board_no), '1')
+		FROM    tbl_board
+	
+	</select>
+	
+	
+	
+	<!-- 해당 게시글 출력 -->
+	<select id="selectBoardOne" parameterType="String" resultType="kr.co.marking.board.domain.BoardDTO">
+	
+		SELECT   b.board_no
+				,b.board_title	
+				,b.board_contents
+				,b.board_registdate
+				,b.board_updatedate
+				,b.board_deletedate
+				,b.board_viewcount
+				,b.board_kind
+				,b.board_delete
+				,m.member_id
+				,m.member_name
+		
+		FROM     tbl_board b
+				,tbl_member m
+		
+		WHERE    board_no = #{board_no}
+		AND      b.member_id = m.member_id
+		
+	</select>
+	
+	<!-- 조회수 올리기 -->
+	<update id="updateBoardViewCount" parameterType="String">
+	
+		UPDATE  tbl_board
+		
+		SET     board_viewcount = board_viewcount + 1
+			   
+		WHERE   board_no = #{board_no}
+	
+	</update>
+	
+	
+	
+	<!-- 게시글 수정 -->
+	<update id="updateBoard" parameterType="kr.co.marking.board.domain.BoardDTO">
+	
+		UPDATE  tbl_board
+		
+		SET     board_contents = #{board_contents}
+			   ,board_title = #{board_title}
+			   ,board_updatedate = sysdate
+		
+		WHERE   board_no = #{board_no}
+		AND     member_id = #{member_id}
+		
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<update id="deleteBoard" parameterType="String">
+	
+		UPDATE  tbl_board
+		
+		SET     board_delete = 'Y'
+			   ,board_deletedate = sysdate
+		
+		WHERE   board_no = #{board_no}
+	
+	</update>
+	
+	<sql id="search">
+		<if test="criteria.keyword != ''">
+			<choose>
+				<when test="criteria.type == 'T'.toString()">
+					AND board_title LIKE '%'||#{criteria.keyword}||'%'
+				</when>
+				<when test="criteria.type == 'C'.toString()">
+					AND board_contents LIKE '%'||#{criteria.keyword}||'%'
+				</when>
+				<when test="criteria.type == 'W'.toString()">
+					AND member_name LIKE '%'||#{criteria.keyword}||'%'
+				</when>
+				<when test="criteria.type == 'TC'.toString()">
+					AND (
+						 board_title LIKE '%'||#{criteria.keyword}||'%'
+						 OR
+						 board_contents LIKE '%'||#{criteria.keyword}||'%'
+						)
+				</when>
+				<when test="criteria.type == 'TCW'.toString()">
+					AND (
+						 board_title LIKE '%'||#{criteria.keyword}||'%'
+						 OR
+						 board_contents LIKE '%'||#{criteria.keyword}||'%'
+						 OR
+						 member_name LIKE '%'||#{criteria.keyword}||'%'
+						)
+				</when>
+			</choose>
+		</if>
+	</sql>
+	
+	
+	<sql id="searcSSh">
+		<if test="criteria.type != null and criteria.keyword != null">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach collection="map" item="criteria" index="criteria">
+					<trim prefix="OR">
+						<choose>
+							<when test="criteria.type == 'T'.toString()">
+								board_title LIKE '%'||#{criteria.keyword}||'%'
+							</when>
+							<when test="criteria.type == 'C'.toString()">
+								board_contents LIKE '%'||#{criteria.keyword}||'%'
+							</when>
+							<when test="criteria.type == 'W'.toString()">
+								member_id LIKE '%'||#{criteria.keyword}||'%'
+							</when>
+						</choose>
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+	
+	
+	
+	
+	
+</mapper>
+
+
+

@@ -1,0 +1,234 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 헤더 시작 -->
+	<!-- ======================================================== -->
+	<%@ include file="../common/header.jsp"%>
+	<!-- ======================================================== -->
+	<!-- 헤더 끝 -->
+
+
+	<!-- 바디 시작 -->
+	<!-- ======================================================== -->
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-9 col-md-7 col-lg-7 mx-auto">
+				<div class="card border-0 shadow rounded-3 my-5">
+					<div class="card-body p-4 p-sm-5">
+						<h2 class="card-title text-center mb-5 fw-bold fs-2">주문하기</h2>
+
+						<h4 class="card-title mb-3 fw-bold fs-4">정보 입력</h4>
+						
+						<form action="" method="post" name="frm">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control" id="order_recipient" name="order_recipient" placeholder="text" maxlength="20"> 
+								<label for="order_recipient">수령인</label>
+							</div>
+							
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control pe-none bg-white w-50 float-start" id="order_post" name="order_post" placeholder="text" maxlength="10" readonly> 
+								<input class="btn btn-dark  btn-login fw-bold sub-hover" style="width: 45%; height: 58px; margin-left: 5%" value="주소찾기" type="button" onclick="post_zip()"/>
+								<label for="order_post">우편번호</label>
+							</div>
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control pe-none bg-white" id="order_basic_address" name="order_basic_address" placeholder="text" maxlength="33" readonly> 
+								<label for="order_basic_address">기본 주소</label>
+								
+							</div>
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control" id="order_detail_address" name="order_detail_address" placeholder="text" maxlength="33"> 
+								<label for="order_detail_address">상세 주소(선택가능)</label>
+							</div>
+							
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control" id="order_tel" name="order_tel" placeholder="text" maxlength="11"> 
+								<label for="order_tel">전화번호 ( - 제외한 숫자 10~11자리)</label>
+							</div>
+							
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control" id="order_message" name="order_message" placeholder="text" maxlength="11"> 
+								<label for="order_message">배송시 요청사항을 적어주세요</label>
+							</div>
+							
+							<div class="form-floating mb-2">
+								<div class="d-grid mb-3">
+									<input type="submit" value="나의 배송지 불러오기" class="btn btn-dark btn-login text-uppercase fw-bold main-hover float-end w-50" id="load-user-info">
+								</div>
+							</div>
+							
+							<hr class="dropdown-divider my-3" />
+							<h4 class="card-title mb-3 fw-bold fs-4">상품 정보</h4>
+							<div>
+								
+								<c:if test="${!empty productInfo}">
+									<c:forEach items="${productInfo}" var="productInfo">
+										
+										<div class="row m-3 border p-1">
+											<div class="col-md-5">
+												<img class="img-fluid rounded mb-3 mb-md-0" src="${contextPath}/product/productImageShow?product_no=${productInfo.product_no}&product_file_main=Y" alt="" style="width : 100%;  height: 150px;">
+											</div>
+											<div class="col-md-7 align-middle">
+											  <h4>${productInfo.product_title}</h4>
+											  <p>수량 : ${amount}</p>
+											  <p class="product-price">가격 : <span class="product-price">${productInfo.product_realprice * amount}</span>원 </p>
+											</div>
+										</div>
+									
+									</c:forEach>
+								</c:if>
+								
+								<c:if test="${!empty basketList}">
+									
+									<c:forEach items="${basketList}" var="basketList">
+										
+										<div class="row m-3 border p-1">
+											<div class="col-md-5">
+												<img class="img-fluid rounded mb-3 mb-md-0 " src="${contextPath}/product/productImageShow?product_no=${basketList.product_no}&product_file_main=Y" alt="" style="width : 100%;  height: 150px;">
+											</div>
+											<div class="col-md-7 align-middle">
+											  <h4>${basketList.product_title}</h4>
+											  <p>수량 : ${basketList.product_amount}</p>
+											  <p class="product-price">가격 : <span class="product-price">${basketList.product_realprice * basketList.product_amount}</span>원 </p>
+											</div>
+										</div>
+									
+									</c:forEach>
+									
+								</c:if>
+								
+							</div>
+							
+							<%--  원본
+							<div>
+							   <div class="row m-3 border p-1">
+							      <div class="col-md-5">
+							          <img class="img-fluid rounded mb-3 mb-md-0 h-100" src="https://via.placeholder.com/700x300" alt="" style="height: 150px;">
+							      </div>
+							      <div class="col-md-7">
+							        <h4>상품이름</h4>
+							        <p>수량 : 0</p>
+							        <p class="product-price">가격 : <span class="product-price">0000</span>원 </p>
+							      </div>
+							    </div>
+							    
+							    <div class="row m-3 border p-1">
+							      <div class="col-md-5">
+							          <img class="img-fluid rounded mb-3 mb-md-0 h-100" src="https://via.placeholder.com/700x300" alt="">
+							      </div>
+							      <div class="col-md-7">
+							        <h4>상품이름</h4>
+							        <p>수량 : 0</p>
+							        <p class="product-price">가격 : <span class="product-price">0000</span>원 </p>
+							      </div>
+							    </div>
+							 </div> 
+							 --%> 
+							  <div class="p-1 text-end">
+							  	 <Strong>총 금액 : <span class="total-price">0000</span>원 (배송비 포함)</Strong>
+							  </div>
+							
+							<hr class="dropdown-divider my-5" />
+							
+							
+							
+							<div class="d-grid mb-3">
+								<input type="submit" value="결제하기" class="btn btn-dark btn-login text-uppercase fw-bold main-hover" id="btn-login">
+							</div>
+							<div class="d-grid">
+								<button class="btn btn-dark btn-login text-uppercase fw-bold sub-hover" type="submit">
+									취소
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+ 
+
+	<!-- ======================================================== -->
+	<!-- 바디 끝 -->
+
+
+	<!-- 푸터 시작 -->
+	<!-- ======================================================== -->
+	<%@ include file="../common/footer.jsp"%>
+	<!-- ======================================================== -->
+	<!-- 푸터 끝 -->
+	
+	<script defer type="text/javascript">
+		
+	
+	
+	
+	
+		var csrf_headername = "${_csrf.headerName}"; 
+		var csrf_token = "${_csrf.token}";
+	
+		<%-- 지도 --%>
+		function post_zip() {
+		   	
+			new daum.Postcode({
+		    	oncomplete: function(data) {
+			    
+				    document.getElementById("order_post").value = data.zonecode; // 주소 넣기
+				    document.getElementById("order_basic_address").value = data.address; // 주소 넣기
+				    document.querySelector("input[name=order_detail_address]").focus(); //상세입력 포커싱
+			    }
+			   }).open();
+		};
+		
+		
+	
+		<%-- 총 합계 구하기--%>
+		function totalPrice() {
+			
+			var total_price = 3000;
+			
+			$("tbody .price").each(function(i, obj){
+			
+				var jobj = $(obj)
+				
+				total_price += parseInt(jobj.text());
+				
+			});
+		
+			$("#total-price-span").html(total_price);
+		}
+		
+		$("#load-user-info").on("click",function(e){
+			e.preventDefault();
+			
+			var order_recipient = "${memberInfo.member_name}";
+			var order_post =  "${memberInfo.member_post}";
+			var order_basic_address = "${memberInfo.member_basicaddress}";
+			var order_detail_address = "${memberInfo.member_detailaddress}";
+			var order_tel = "${memberInfo.member_tel}";
+			
+			$("#order_recipient").val(order_recipient);
+			$("#order_post").val(order_post);
+			$("#order_basic_address").val(order_basic_address);
+			$("#order_detail_address").val(order_detail_address);
+			$("#order_tel").val(order_tel);
+		});
+		
+		
+		
+		
+	
+	</script> 
+	 
+	
+	
+</body>
+</html>

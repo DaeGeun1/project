@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.marking.product.mapper.BasketMapper">
+	
+	
+	<!-- 장바구니 상품등록 -->
+	<insert id="insertBasket" parameterType="kr.co.marking.product.domain.BasketDTO">
+	
+		INSERT INTO tbl_basket (   basket_no 
+								  ,member_id
+								  ,product_no
+								  ,product_amount
+								)
+		
+		VALUES                 (   seq_basket_no.NEXTVAL
+								  ,#{member_id}
+								  ,#{product_no}
+								  ,#{product_amount}
+								)
+	
+	</insert>
+	
+	<!-- 해당 회원의 장바구니 내역 출력 -->
+	<select id="selectBasketList" parameterType="kr.co.marking.product.domain.BasketDTO" resultType="kr.co.marking.product.domain.BasketDTO">
+	
+		SELECT    b.basket_no
+				 ,b.member_id
+				 ,b.basket_registdate
+				 ,b.product_no
+				 ,b.product_amount
+				 ,p.product_title
+				 ,p.product_realprice
+				 ,p.product_stock
+				 
+		FROM      tbl_basket   b
+				 ,tbl_product  p
+				 ,tbl_member   m
+				 
+		
+		WHERE     b.member_id = m.member_id
+		
+		AND       b.product_no = p.product_no
+		
+		<if test="product_no != null">
+		AND		  b.product_no = #{product_no}
+		</if>
+		
+		<if test="member_id != null">
+		AND       b.member_id = #{member_id}
+		</if>
+		
+		<if test="basket_no != null">
+		AND       b.basket_no = #{basket_no}
+		</if>
+	
+	</select>
+	
+	
+	<!-- 해당 장바구니 내역 삭제 -->
+	<delete id="deleteBasket" parameterType="String">
+	
+		DELETE
+		
+		FROM    tbl_basket
+		
+		WHERE   basket_no = #{basket_no}
+	
+	</delete>
+	
+	
+	<!-- 해당 장바구니 수량 변경 -->
+	<update id="updateBasket" parameterType="kr.co.marking.product.domain.BasketDTO">
+		
+		UPDATE   tbl_basket
+		
+		SET      product_amount = #{product_amount}  
+		
+		WHERE    basket_no = #{basket_no}
+		
+	</update>
+	
+	
+	
+	
+</mapper>

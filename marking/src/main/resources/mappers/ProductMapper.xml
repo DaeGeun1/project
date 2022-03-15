@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.marking.product.mapper.ProductMapper">
+	
+	
+	<!-- 상품 추가 -->
+	<insert id="insertProduct" parameterType="kr.co.marking.product.domain.ProductDTO">
+	
+		INSERT INTO tbl_product(  product_no
+					 			 ,product_title
+								 ,product_contents
+								 ,product_saleprice
+								 ,product_dispercent
+								 ,product_costprice
+								 ,product_realprice
+								 ,product_profit
+								 ,product_stock
+								 ,product_salestate
+								 ,product_sale
+								)
+		
+		VALUES    			    ( LPAD(${product_no},6,'0') || seq_product_no.NEXTVAL
+				     			 ,#{product_title}
+				     			 ,#{product_contents}
+				     			 ,#{product_saleprice}
+				     			 ,#{product_dispercent}
+				     			 ,#{product_costprice}
+				     			 ,#{product_realprice}
+				     			 ,#{product_realprice} - #{product_costprice}
+				     			 ,#{product_stock}
+				     			
+				     			<if test='product_stock != "0" '>
+				     			 ,'Y'
+				     			</if>
+				     			<if test='product_stock == "0" '>
+				     			 ,'N'
+				     			</if>
+				     			
+				     			<if test='product_dispercent != "0" '>
+				     			 ,'Y'
+				     			</if>
+				     			<if test='product_dispercent == "0" '>
+				     			 ,'N'
+				     			</if>
+				     			 )
+	     
+	
+	</insert>
+	
+	<!-- 최근에 등록된 no값 가져오기 -->
+	<select id="selectProductRecentNo" resultType="String">
+	
+		SELECT	product_no
+		
+		FROM    tbl_product 
+		
+		WHERE   product_registdate =  (SELECT   MAX(product_registdate)	
+  									  
+  									   FROM 	tbl_product )
+	</select>
+	
+	<!-- 관리자단 상품리스트 출력 DataTable 사용 -->
+	<select id="selectProductListAdminPage" resultType="kr.co.marking.product.domain.ProductDTO">
+	
+		SELECT  	 ROWNUM product_rno
+					,product_no            
+					,product_title          
+					,product_contents       
+					,product_registdate  
+					,product_saleprice      
+					,product_dispercent   
+					,product_costprice      
+					,product_realprice     
+					,product_profit         
+					,product_stock       
+					,product_salestate      
+					,product_best           
+					,product_sale           
+					,product_new            
+					,product_delete         
+					,product_order          
+					,product_viewcount
+					,product_salesamount
+		
+		FROM   (	SELECT 		 product_no            
+								,product_title          
+								,product_contents       
+								,product_registdate  
+								,product_saleprice      
+								,product_dispercent   
+								,product_costprice      
+								,product_realprice     
+								,product_profit         
+								,product_stock       
+								,product_salestate      
+								,product_best           
+								,product_sale           
+								,product_new            
+								,product_delete         
+								,product_order          
+								,product_viewcount
+								,product_salesamount
+					
+					FROM        tbl_product
+					
+					WHERE       product_delete = 'N'
+		
+					ORDER BY    product_registdate DESC
+				)
+		
+	
+	
+	</select>
+	
+	<!-- 회원단 상품리스트 출력 페이징처리를 위해 map로 받음 -->
+	<select id="selectProductListUserPage" parameterType="map" resultType="kr.co.marking.product.domain.ProductDTO">
+	
+		SELECT       rn
+					,product_no            
+					,product_title          
+					,product_contents       
+					,product_registdate  
+					,product_saleprice      
+					,product_dispercent   
+					,product_costprice      
+					,product_realprice     
+					,product_profit         
+					,product_stock       
+					,product_salestate      
+					,product_best           
+					,product_sale           
+					,product_new            
+					,product_delete         
+					,product_order          
+					,product_viewcount
+					,product_salesamount
+		
+		FROM        (SELECT  	 ROWNUM rn
+								,product_no            
+								,product_title          
+								,product_contents       
+								,product_registdate  
+								,product_saleprice      
+								,product_dispercent   
+								,product_costprice      
+								,product_realprice     
+								,product_profit         
+								,product_stock       
+								,product_salestate      
+								,product_best           
+								,product_sale           
+								,product_new            
+								,product_delete         
+								,product_order          
+								,product_viewcount
+								,product_salesamount
+		
+					FROM   (	SELECT 		 product_no            
+											,product_title          
+											,product_contents       
+											,product_registdate  
+											,product_saleprice      
+											,product_dispercent   
+											,product_costprice      
+											,product_realprice     
+											,product_profit         
+											,product_stock       
+											,product_salestate      
+											,product_best           
+											,product_sale           
+											,product_new            
+											,product_delete         
+											,product_order          
+											,product_viewcount
+											,product_salesamount
+								
+								FROM        tbl_product
+								
+								WHERE       product_delete = 'N'
+								
+								<include refid="search"></include>
+
+								<include refid="cateNo"></include>
+								
+								<include refid="sort"></include>
+								
+							)
+					)
+		<![CDATA[			
+		WHERE 		rn <= #{criteria.pageNum} * #{criteria.amount}
+		
+		AND         rn > (#{criteria.pageNum} - 1) * #{criteria.amount}
+		]]>
+		
+		
+	
+	</select>
+	
+	<!-- 상품 상세정보 출력  상품 클릭시 -->
+	<select id="selectProductInfo" parameterType="String" resultType="kr.co.marking.product.domain.ProductDTO">
+		
+		SELECT 		 product_no            
+					,product_title          
+					,product_contents       
+					,product_registdate  
+					,product_saleprice      
+					,product_dispercent   
+					,product_costprice      
+					,product_realprice     
+					,product_profit         
+					,product_stock       
+					,product_salestate      
+					,product_best           
+					,product_sale           
+					,product_new            
+					,product_delete         
+					,product_order          
+					,product_viewcount
+					,product_salesamount
+					
+		FROM        tbl_product
+		
+		WHERE       product_no = #{product_no}
+		
+		
+	</select>
+	
+	<!--  상품 조회수 + 1 -->
+	<update id="updateProductViewCount" parameterType="String">
+	
+		UPDATE    tbl_product
+		
+		SET		  product_viewcount = product_viewcount + 1
+		
+		WHERE     product_no = #{product_no}
+	
+	</update>
+	
+	
+	
+	<!-- 회원단 상품 리스트 총 갯수 출력  페이징시 필요  -->
+	<select id="selectProductTotalCount" parameterType="map" resultType="int">
+	
+		SELECT    COUNT(product_no)
+		
+		FROM      tbl_product
+		
+		WHERE     product_delete = 'N'
+		
+		<include refid="search"></include>
+		
+		<include refid="cateNo"></include>
+	
+	</select>
+	
+	
+	<!-- 상품 삭제 -->
+	<update id="deleteProduct" parameterType="String">
+	
+		UPDATE 	 tbl_product
+		
+		SET   	 product_delete = 'Y'
+		
+		WHERE  	 product_no = #{product_no}
+	
+	</update>
+	
+	<!-- 메인화면 베스트 4개 -->
+	<select id="selectBestProductList" resultType="kr.co.marking.product.domain.ProductDTO">
+	
+		SELECT  	 ROWNUM
+					,product_no            
+					,product_title          
+					,product_contents       
+					,product_registdate  
+					,product_saleprice      
+					,product_dispercent   
+					,product_costprice      
+					,product_realprice     
+					,product_profit         
+					,product_stock       
+					,product_salestate      
+					,product_best           
+					,product_sale           
+					,product_new            
+					,product_delete         
+					,product_order          
+					,product_viewcount
+					,product_salesamount
+		
+		FROM   (	SELECT 		 product_no            
+								,product_title          
+								,product_contents       
+								,product_registdate  
+								,product_saleprice      
+								,product_dispercent   
+								,product_costprice      
+								,product_realprice     
+								,product_profit         
+								,product_stock       
+								,product_salestate      
+								,product_best           
+								,product_sale           
+								,product_new            
+								,product_delete         
+								,product_order          
+								,product_viewcount
+								,product_salesamount
+								
+					FROM        tbl_product
+								
+					WHERE       product_delete = 'N'
+					
+					AND         product_best = 'Y'
+					
+					ORDER BY    product_order DESC
+				
+				)
+		<![CDATA[		
+		WHERE      ROWNUM >= 1
+		
+		AND        ROWNUM <= 4
+		]]>
+	
+	</select>
+	
+	<!-- 메인화면 신상품 4개 -->
+	<select id="selectNewtProductList" resultType="kr.co.marking.product.domain.ProductDTO">
+	
+		SELECT  	 ROWNUM
+					,product_no            
+					,product_title          
+					,product_contents       
+					,product_registdate  
+					,product_saleprice      
+					,product_dispercent   
+					,product_costprice      
+					,product_realprice     
+					,product_profit         
+					,product_stock       
+					,product_salestate      
+					,product_best           
+					,product_sale           
+					,product_new            
+					,product_delete         
+					,product_order          
+					,product_viewcount
+					,product_salesamount
+		
+		FROM   (	SELECT 		 product_no            
+								,product_title          
+								,product_contents       
+								,product_registdate  
+								,product_saleprice      
+								,product_dispercent   
+								,product_costprice      
+								,product_realprice     
+								,product_profit         
+								,product_stock       
+								,product_salestate      
+								,product_best           
+								,product_sale           
+								,product_new            
+								,product_delete         
+								,product_order          
+								,product_viewcount
+								,product_salesamount
+								
+					FROM        tbl_product
+								
+					WHERE       product_delete = 'N'
+					
+					AND         product_new = 'Y'
+					
+					ORDER BY    product_registdate DESC
+				
+				)
+				
+		<![CDATA[		
+		WHERE      ROWNUM >= 1
+		
+		AND        ROWNUM <= 4
+		]]>
+		
+	</select>
+	
+	<!-- 메인화면 세일상품 4개 -->
+	<select id="selectSaleProductList" resultType="kr.co.marking.product.domain.ProductDTO">
+	
+		SELECT  	 ROWNUM
+					,product_no            
+					,product_title          
+					,product_contents       
+					,product_registdate  
+					,product_saleprice      
+					,product_dispercent   
+					,product_costprice      
+					,product_realprice     
+					,product_profit         
+					,product_stock       
+					,product_salestate      
+					,product_best           
+					,product_sale           
+					,product_new            
+					,product_delete         
+					,product_order          
+					,product_viewcount
+					,product_salesamount
+		
+		FROM   (	SELECT 		 product_no            
+								,product_title          
+								,product_contents       
+								,product_registdate  
+								,product_saleprice      
+								,product_dispercent   
+								,product_costprice      
+								,product_realprice     
+								,product_profit         
+								,product_stock       
+								,product_salestate      
+								,product_best           
+								,product_sale           
+								,product_new            
+								,product_delete         
+								,product_order          
+								,product_viewcount
+								,product_salesamount
+								
+					FROM        tbl_product
+								
+					WHERE       product_delete = 'N'
+					
+					AND         product_sale = 'Y'
+					
+					ORDER BY    product_order DESC
+				
+				)
+				
+		<![CDATA[		
+		WHERE      ROWNUM >= 1
+		
+		AND        ROWNUM <= 4
+		]]>
+		
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<sql id="search">
+		<if test="criteria.keyword != null">
+			AND product_title LIKE '%' || #{criteria.keyword} || '%'
+		</if>
+	</sql>
+	
+	<sql id="cateNo">
+		<if test="cate_no != null">
+			<if test="cate_no == '01'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0101'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '010101'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '010102'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '010103'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0102'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '010204'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '010205'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '010206'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0103'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '010307'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '010308'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0104'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '02'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0205'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0206'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0207'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0208'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0209'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '03'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0310'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0311'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0312'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0313'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0314'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0315'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0316'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '04'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0417'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '0418'.toString()">
+				AND product_no LIKE #{cate_no}||'%'
+			</if>
+			<if test="cate_no == '05'.toString()">
+				AND product_best = 'Y'
+			</if>
+			<if test="cate_no == '06'.toString()">
+				AND product_new = 'Y'
+			</if>
+			<if test="cate_no == '07'.toString()">
+				AND product_sale = 'Y'
+			</if>
+			
+		</if>
+	</sql>
+	
+	<sql id="sort">
+		<if test="criteria.sort != null">
+			<if test="criteria.sort == '1'.toString()">
+				ORDER BY product_registdate DESC
+			</if>
+			<if test="criteria.sort == '2'.toString()">
+				ORDER BY product_realprice ASC
+			</if>
+			<if test="criteria.sort == '3'.toString()">
+				ORDER BY product_realprice DESC
+			</if>
+			<if test="criteria.sort == '4'.toString()">
+				ORDER BY product_viewcount DESC
+			</if>
+			<if test="criteria.sort == '5'.toString()">
+				ORDER BY product_order DESC
+			</if>
+			
+		</if>
+	</sql>
+	
+</mapper>

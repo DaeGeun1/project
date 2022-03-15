@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security
+	 	http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 로그인시도시 들어가는 곳 -->
+	<bean id="CustomUserDetailsService" class="kr.co.marking.security.CustomUserDetailsService"/>
+	<bean id="CustomUserLoginFailHandler" class="kr.co.marking.security.CustomUserLoginFailHandler"/>
+	<bean id="CustomUserLoginSuccessHandler" class="kr.co.marking.security.CustomUserLoginSuccessHandler"/>
+	<bean id="CustomUserLoginAuthenticationProvider" class="kr.co.marking.security.CustomUserLoginAuthenticationProvider"/> 
+	
+	<bean id="BCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+
+	<security:http auto-config="true" use-expressions="true">
+	
+		<!-- <security:intercept-url pattern="/marking.co.kr/board/list" access="hasRole('ROLE_MEMBER')"/>  -->
+		
+		<security:form-login  username-parameter="member_id"         
+							  password-parameter="member_password"
+							  login-page="/login"
+							  login-processing-url="/login"
+							  authentication-failure-handler-ref="CustomUserLoginFailHandler"
+							  authentication-success-handler-ref="CustomUserLoginSuccessHandler"/>
+		
+		<security:access-denied-handler error-page="/dninePage"/>
+		
+		<security:logout  logout-url="/logout"
+						  logout-success-url="/"	
+						  invalidate-session="true"
+						  delete-cookies=""/>
+						 
+		<!--
+			 logout-url : 로그아웃 URL
+
+			 logout-success-url : 로그아웃 성공시, 이동할 URL. (default: /login?logout)
+			
+			 invalidate-session : 로그아웃 시, session을 무효화할 지 선택. (default: true)
+			
+			 delete-cookies : 로그아웃 성공시, 삭제할 쿠키 이름 지정
+			
+			 success-handler-ref : 로그아웃 성공시, logout-success-url 이 아닌 핸들러로 리다이렉트
+		  -->
+			
+	</security:http>
+	
+	<security:authentication-manager>
+		
+		<!-- AuthenticationProvider 커스터마이징 -->
+		<security:authentication-provider  ref="CustomUserLoginAuthenticationProvider"/>
+	   
+			
+			
+		<!-- UserDetailsService 커스터마이징 -->
+		<!-- <security:authentication-provider user-service-ref="CustomUserDetailsService">  -->
+			
+			<!-- 이거 없으면 절대로 성공안된다..... -->
+			<!-- db값과 로그인페이지에 입력된 값을 비교해주는것 필수 -->
+			<!-- <security:password-encoder ref="BCryptPasswordEncoder"/> --> 
+			
+		 <!-- </security:authentication-provider> --> 
+	
+	</security:authentication-manager>
+	
+	
+
+</beans>
