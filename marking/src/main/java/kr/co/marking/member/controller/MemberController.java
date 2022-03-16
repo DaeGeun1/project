@@ -88,7 +88,7 @@ public class MemberController {
 				
 				rttr.addFlashAttribute("failMessage", "비밀번호가 틀렸습니다.");
 				
-				return "redirect:/marking.co.kr/member/check";
+				return "redirect:/member/check";
 			}
 		} else {
 			rttr.addFlashAttribute("failMessage", "비밀번호를 작성해주세요.");

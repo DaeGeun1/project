@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-	<!-- 헤더 시작 -->
-	<!-- ======================================================== -->
+	<%-- 헤더 시작 --%>
+	<%-- ======================================================== --%>
 	<%@ include file="../common/adminHeader.jsp"%>
-	<!-- ======================================================== -->
-	<!-- 헤더 끝 -->
+	<%-- ======================================================== --%>
+	<%-- 헤더 끝 --%>
 
 
-	<!-- 바디 시작 -->
-	<!-- ======================================================== -->
+	<%-- 바디 시작 --%>
+	<%-- ======================================================== --%>
 	
 	
 	<div class="container border  p-5 mt-5">
@@ -134,22 +134,23 @@
   </div>
   <!-- /.container -->
 
-	<!-- ======================================================== -->
-	<!-- 바디 끝 -->
+	<%-- ======================================================== --%>
+	<%-- 바디 끝 --%>
 
 
-	<!-- 푸터 시작 -->
-	<!-- ======================================================== -->
+	<%-- 푸터 시작 --%>
+	<%-- ======================================================== --%>
 	
-	<!-- ======================================================== -->
-	<!-- 푸터 끝 -->
+	<%-- ======================================================== --%>
+	<%-- 푸터 끝 --%>
+	
 	 <script defer type="text/javascript">
 	 	
 	 
-	 //=================================================================
-	 //대분류 중분류 소분류 db에서 꺼내오는 동작들	 
+	 <%-- ================================================================= --%>
+	 <%-- 대분류 중분류 소분류 db에서 꺼내오는 동작들	 --%> 
 	 
-		//대분류 선택시 중분류 변경 로직
+		<%-- 대분류 선택시 중분류 변경 로직 --%>
 	 	$("#big_category").on("change",function(){
 	 		
 	 		var level = $("#big_category option:selected").data("level");
@@ -161,7 +162,7 @@
 	 			dataType : "json",
 	 			type : "GET",
 	 			success : function(result ) {
-	 				showMiddleCategory(result);  // 중분류 변경
+	 				showMiddleCategory(result);  <%-- 중분류 변경 --%>
 	 			},
 	 			fail : function(result) {
 	 				alert("실패");
@@ -174,7 +175,7 @@
 	 		});
 	 	});
 	 	
-	 	//중분류 선택시 소분류 변경 로직
+	 	<%-- 중분류 선택시 소분류 변경 로직 --%>
 		$("#middle_category").on("change",function(){
 	 		
 	 		var level = $("#middle_category option:selected").data("level");
@@ -186,7 +187,7 @@
 	 			dataType : "json",
 	 			type : "GET",
 	 			success : function(result ) {
-	 				showSmallCategory(result); // 소분류 변경
+	 				showSmallCategory(result); <%--  소분류 변경 --%>
 	 				
 	 			},
 	 			fail : function(result) {
@@ -200,41 +201,41 @@
 	 		});
 	 	});
 	 	
-	 	//대분류 선택시 중분류 선택하는 로직
+		<%-- 대분류 선택시 중분류 선택하는 로직 --%>
 	 	function showMiddleCategory(arr) {
 	 		
 	 		var str = ""
 	 		str += "<option data-level='0' data-kind='0' data-step='0' value='N'>선택해주세요</option>";
 	 		
-	 		//값이 없으면 선택하시요만 출력   대분류 선택하시오 선택시 작동
+	 		<%-- 값이 없으면 선택하시요만 출력   대분류 선택하시오 선택시 작동 --%>
 	 		if(!arr || arr.length == 0) { 
-	 			$("#middle_category").html(str);  //중분류 초기화
-	 			$("#small_category").html(str);   //소분류 초기화
+	 			$("#middle_category").html(str);  <%-- 중분류 초기화 --%>
+	 			$("#small_category").html(str);   <%-- 소분류 초기화 --%>
 	 			return false;
 		    }
 	 		
-	 		// 대분류 선택시 자동으로 소분류 초기화
+	 		<%--  대분류 선택시 자동으로 소분류 초기화 --%>
 	 		$("#small_category").html(str);
 	 		
 	 		$(arr).each(function(i, arr){
 	 			
 	 			str +="<option data-level='" + arr.category_level + "' data-kind='" + arr.category_kind +  "' data-step='" + arr.category_step + "' value='" + arr.category_number + "'>" + arr.category_name + "</option>";                                  
 	 			
-	 		}); //each
+	 		}); <%-- each --%>
 	 		
-	 		// 대분류 선택시 해당하는 중분류 카테고리 출력
+	 		<%--  대분류 선택시 해당하는 중분류 카테고리 출력 --%>
 	 		$("#middle_category").html(str);
 	 	}
 	 	
-	 	//중분류 선택시 소분류 선택하는 로직
+	 	<%-- 중분류 선택시 소분류 선택하는 로직 --%>
 		function showSmallCategory(arr) {
 	 		
 	 		var str = ""
 	 		str += "<option data-level='0' data-kind='0' data-step='0' value='N'>선택해주세요</option>";
 			
-	 		//값이 없으면 선택하시요만 출력   중분류 선택하시오 선택시 작동
+	 		<%-- 값이 없으면 선택하시요만 출력   중분류 선택하시오 선택시 작동 --%>
 	 		if(!arr || arr.length == 0) { 
-	 			$("#small_category").html(str); //소분류 초기화
+	 			$("#small_category").html(str); <%-- 소분류 초기화 --%>
 	 			return false;
 		    }
 	 		
@@ -243,11 +244,11 @@
 	 			
 	 			str +="<option data-level='" + arr.category_level + "' data-kind='" + arr.category_kind +  "' data-step='" + arr.category_step + "' value='" + arr.category_number + "'>" + arr.category_name + "</option>";                                  
 	 			
-	 		}); //each
+	 		}); <%-- each --%>
 	 		$("#small_category").html(str);
 	 	}
 	 
-		//일종의 확인용도
+		<%-- 일종의 확인용도
 		$("#small_category").on("change",function(){
 			var step1 = $("#big_category option:selected").val();
 			var step2 = $("#middle_category option:selected").val();
@@ -256,30 +257,30 @@
 			
 			alert(step1 + step2 + step3);
 		});
+		 --%>
+		<%-- =================================================================== --%>
 		
-		//===================================================================
-		
-		var num_reg  = /^[0-9]*$/;           // 숫자만
+		var num_reg  = /^[0-9]*$/;           <%--  숫자만 --%>
 			
-		//실제 판매가 구하는 로직
+		<%-- 실제 판매가 구하는 로직 --%>
 		$("#product_saleprice").on("blur",function(){
 			var saleprice = $(this).val();
 			var dispercent = $("#product_dispercent").val();
 			
 			if(!num_reg.test(saleprice)) {
 				fnModal("원 판매가는 숫자만 입력가능합니다.(소수점x/음수x)");
-				$("#product_saleprice").val("");           //원 판매가 초기화
-				$("#product_realprice").val("");           //실제 판매가 초기화
+				$("#product_saleprice").val("");           <%-- 원 판매가 초기화 --%>
+				$("#product_realprice").val("");           <%-- 실제 판매가 초기화 --%>
 				return false;
 			} else if(!num_reg.test(dispercent)) {
 				fnModal("할인률은 숫자만 입력가능합니다.(소수점x/음수x)");
-				$("#product_dispercent").val("");          //할인율 초기화
-				$("#product_realprice").val("");           //실제 판매가 초기화 
+				$("#product_dispercent").val("");          <%-- 할인율 초기화 --%>
+				$("#product_realprice").val("");           <%-- 실제 판매가 초기화  --%>
 				return false;
 			} else if(dispercent < 0 || dispercent > 100) {
 				fnModal("0~100(%)값을 입력해주세요.");
-				$("#product_dispercent").val("");          //할인율 초기화
-				$("#product_realprice").val("");           //실제 판매가 초기화 
+				$("#product_dispercent").val("");          <%-- 할인율 초기화 --%>
+				$("#product_realprice").val("");           <%-- 실제 판매가 초기화  --%>
 				return false;
 			}
 			
@@ -291,25 +292,25 @@
 			
 		});	
 		
-		//실제 판매가 구하는 로직
+		<%-- 실제 판매가 구하는 로직 --%>
 		$("#product_dispercent").on("blur",function(){
 			var saleprice = $("#product_saleprice").val();
 			var dispercent = $(this).val();
 			
 			if(!num_reg.test(saleprice)) {
 				fnModal("원 판매가는 숫자만 입력가능합니다.(소수점x/음수x)");
-				$("#product_saleprice").val("");           //원 판매가 초기화
-				$("#product_realprice").val("");           //실제 판매가 초기화
+				$("#product_saleprice").val("");           <%-- 원 판매가 초기화 --%>
+				$("#product_realprice").val("");           <%-- 실제 판매가 초기화 --%>
 				return false;
 			} else if(!num_reg.test(dispercent)) {
 				fnModal("할인률은 숫자만 입력가능합니다.(소수점x/음수x)");
-				$("#product_dispercent").val("");          //할인율 초기화
-				$("#product_realprice").val("");           //실제 판매가 초기화 
+				$("#product_dispercent").val("");          <%-- 할인율 초기화 --%>
+				$("#product_realprice").val("");           <%-- 실제 판매가 초기화  --%>
 				return false;
 			} else if(dispercent < 0 || dispercent > 100) {
 				fnModal("할인율은 0~100(%)값만 입력해주세요.");
-				$("#product_dispercent").val("");          //할인율 초기화
-				$("#product_realprice").val("");           //실제 판매가 초기화 
+				$("#product_dispercent").val("");          <%-- 할인율 초기화 --%>
+				$("#product_realprice").val("");           <%-- 실제 판매가 초기화  --%>
 				return false;
 			}
 			
@@ -320,9 +321,9 @@
 		});	
 		
 		
-		//===========================================================
+		<%-- ===========================================================
 			
-		//모달창 기능
+		<%-- 모달창 기능 --%>
 		function fnModal(e) {
 			
 			$(".modal-body").html(e);
@@ -332,9 +333,9 @@
 		};	
 		
 		
-		var num_reg  = /^[0-9]*$/;           // 숫자만
+		var num_reg  = /^[0-9]*$/;           <%--  숫자만 --%>
 			
-		//상품 등록 유효성 체크
+		<%-- 상품 등록 유효성 체크 --%>
 		$("#btn-product-add").on("click", function(e){
 			e.preventDefault;
 			
@@ -351,10 +352,7 @@
 			var main_image = $("#main-file").val();
 			
 			
-			/*if(main_image == "") {
-				fnModal("메인사진 등록 또는 다시 등록해주세요.");
-				return false;
-			}*/  if(big_category == "N") {
+			if(big_category == "N") {
 				fnModal("대분류를 선택해주세요.");
 				return false;
 			} else if(middle_category == "N") {
@@ -412,8 +410,8 @@
 		});
 		
 		
-		//===============================================
-		//상품등록	
+		<%-- ===============================================
+		<%-- 상품등록	 --%>
 		function fileAdd(e){
 			e.preventDefault();
 		
@@ -439,8 +437,8 @@
 			$("#form-product-add").append(str).submit();
 		}
 		
-		//===============================================================
-		//드래그 앤 드랍 (메인 이미지)
+		<%-- =============================================================== --%>
+		<%-- 드래그 앤 드랍 (메인 이미지) --%>
 			
 		var csrf_headername = "${_csrf.headerName}"; 
 		var csrf_token = "${_csrf.token}";
@@ -448,8 +446,8 @@
 			
 		(function() {
             
-            var mainFile = document.getElementById("main-file") //input file value값
-            var dropZone = document.querySelector(".drop-zone")  //img가 뿌려질 공간
+            var mainFile = document.getElementById("main-file") <%-- input file value값 --%>
+            var dropZone = document.querySelector(".drop-zone")  <%-- img가 뿌려질 공간 --%>
 
             var toggleClass = function(className) {
                 
@@ -467,7 +465,7 @@
             }
            
 
-            // 드래그한 파일이 최초로 진입했을 때
+            <%-- 드래그한 파일이 최초로 진입했을 때 --%>
             dropZone.addEventListener("dragenter", function(e) {
                 e.stopPropagation()
                 e.preventDefault()
@@ -476,7 +474,7 @@
 
             })
 
-            // 드래그한 파일이 dropZone 영역을 벗어났을 때
+           <%-- 드래그한 파일이 dropZone 영역을 벗어났을 때 --%>
             dropZone.addEventListener("dragleave", function(e) {
                 e.stopPropagation()
                 e.preventDefault()
@@ -485,7 +483,7 @@
 
             })
 
-            // 드래그한 파일이 dropZone 영역에 머물러 있을 때
+            <%-- 드래그한 파일이 dropZone 영역에 머물러 있을 때 --%>
             dropZone.addEventListener("dragover", function(e) {
                 e.stopPropagation()
                 e.preventDefault()
@@ -494,13 +492,13 @@
 
             })
             
-			// 파일첨부를 직접하였을때
+			<%-- 파일첨부를 직접하였을때 --%>
             mainFile.addEventListener("change", function(e) {
                 
             	mainImageUpload(e.target.files);
             })
             
-            // 드래그한 파일이 드랍되었을 때
+            <%-- 드래그한 파일이 드랍되었을 때 --%>
             dropZone.addEventListener("drop", function(e) {
                 e.preventDefault()
 
@@ -508,19 +506,19 @@
 
                 var files = e.dataTransfer && e.dataTransfer.files
 
-                if ( files.length > 1){  //메인이미지는 하나만
+                if ( files.length > 1){  <%-- 메인이미지는 하나만 --%>
                 	fnModal("메인사진은 하나만 등록이 가능합니다.");
                 	return false;
                 }
                    
-                mainFile.files = files; //이곳이 input파일 value 변경해주는 것   
+                mainFile.files = files; <%-- 이곳이 input파일 value 변경해주는 것  --%>  
                	
                	mainImageUpload(files);
        		})
 
         })();
 		
-		//메인 이미지 업로드
+		<%-- 메인 이미지 업로드 --%>
 		function mainImageUpload(e) {
 			var formData = new FormData();
        		
@@ -530,7 +528,7 @@
        		
        		for(var i = 0 ; i < inputFiles.length; i++) {
        			
-       			if(!imageCheck(inputFiles[i])){  //메인이미지 유효성 검사
+       			if(!imageCheck(inputFiles[i])){  <%-- 메인이미지 유효성 검사 --%>
     				return false;
     			}
        			
@@ -551,16 +549,16 @@
        				showMainImage(result)
   				return;
        			}
-       		}); //$.ajax
+       		}); 
            	
            	
              return;
 		}
 		
 		
-		//메인 이미지 유효성 체크
+		<%-- 메인 이미지 유효성 체크 --%>
 		function imageCheck(e) {
-			var maxSize = 5242880; //5MB
+			var maxSize = 5242880; <%-- 5MB --%>
 			
 			if (e != null) {
                 
@@ -577,7 +575,7 @@
 		}
 		
 		
-		//메인이미지 보여주기
+		<%-- 메인이미지 보여주기 --%>
 		function showMainImage(e){
 			
 			if(!e || e.length == 0) { 
@@ -588,7 +586,7 @@
 			
 			$(e).each(function(i, obj) {
 					
-				//글 등록시에 썸네일 이미지는 생성하되 뿌리는건 본 이미지 사진깨짐
+				<%-- 글 등록시에 썸네일 이미지는 생성하되 뿌리는건 본 이미지 사진깨짐 --%>
 				var fileCallPath = encodeURIComponent(obj.product_file_uploadpath+ "/" + obj.product_file_uuid + "_" + obj.product_file_name);
 				var deletePath = encodeURIComponent(obj.product_file_uploadpath+ "/s_" + obj.product_file_uuid + "_" + obj.product_file_name);
 				
@@ -605,13 +603,13 @@
 		}
 		
 		
-		//메인 사진 삭제 기능
+		<%-- 메인 사진 삭제 기능 --%>
 		$("#main-image-div").on("click", "button", function(e) {
 		    
 			console.log("delete file");
 			      
 			var targetFile = $(this).data("file");
-			var targetdiv = $(this).closest("div");   // 가장 가까운 div
+			var targetdiv = $(this).closest("div");   <%--  가장 가까운 div --%>
 			    
 			$.ajax({
 				url: "${contextPath}/product/productFileDelete",
@@ -625,13 +623,13 @@
 					targetdiv.remove();
 					$("#main-image-div").html("파일 선택 또는 <br> 이곳에 파일을 드래그해주세요");
 				}
-			}); //$.ajax
+			}); 
 		});
 		
 		
 		
-		//========================================================================================
-		//서브 이미지
+		<%-- ======================================================================================== --%>
+		<%-- 서브 이미지 --%>
 		
 		
 		$("#sub-file").on("change",function(e){
@@ -641,7 +639,7 @@
 		});
 		
 		
-		//서브 이미지 업로드
+		<%-- 서브 이미지 업로드 --%>
 		function subImageUpload(e) {
 			var formData = new FormData();
        		
@@ -673,7 +671,7 @@
        				showSubImage(result)
   				return;
        			}
-       		}); //$.ajax
+       		}); 
            	
              return;
 		}
@@ -723,7 +721,7 @@
 				success: function(result){
 					targetdiv.remove();
 				}
-			}); //$.ajax
+			}); 
 		});
 		
 

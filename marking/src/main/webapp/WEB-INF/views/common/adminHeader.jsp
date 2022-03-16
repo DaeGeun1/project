@@ -182,16 +182,12 @@
 		        </li>
 		        </sec:authorize>
 		        
-		        <%-- 모든 사용자 로그인 상태 --%>
-		        <sec:authorize access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')">
-		        <li class="nav-item">
-		        	<a class="nav-link active" href="javascript:logout.submit();">로그아웃</a>
-		        	<div id="here"></div>
-		        </li>
-		        </sec:authorize>
-		        
-		        <%-- 일반회원 로그인 상태 --%>
+		        <%-- 로그인 상태 --%>
 		        <sec:authorize access="isAuthenticated()">
+		        	<li class="nav-item">
+			        	<a class="nav-link active" href="javascript:logout.submit();">로그아웃</a>
+			        	<div id="here"></div>
+			        </li>
 			        <li class="nav-item">
 			          <a class="nav-link active" href="${contextPath}/basket/list">장바구니</a>
 			        </li>
@@ -199,6 +195,7 @@
 			          <a class="nav-link active" href="${contextPath}/order/list">주문조회</a>
 			        </li>
 			        
+			        <%-- 일반회원 --%>
 			        <c:if test="${principal.authorities eq '[ROLE_MEMBER]'}">
 			        <li class="nav-item dropdown">
 			          <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">나의메뉴</a>
@@ -211,9 +208,10 @@
 			        </li>
 			        </c:if>
 			        
+			         <%-- 관리자 --%>
 			        <sec:authorize access="hasRole('ROLE_ADMIN')">
 			        <li class="nav-item dropdown">
-			          <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">관리자메뉴</a>
+			          <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">관리자메뉴</a>
 			          <div class="dropdown-menu">
 			            <a class="dropdown-item" href="#">회원관리</a>
 			            <a class="dropdown-item" href="${contextPath}/product/admin/list">상품관리</a>
@@ -226,8 +224,6 @@
 			        
 		        </sec:authorize>
 
-		        <%-- 관리자 로그인 상태 --%>
-		        
 		        <li class="nav-item dropdown">
 		          <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">커뮤니티</a>
 		          <div class="dropdown-menu">

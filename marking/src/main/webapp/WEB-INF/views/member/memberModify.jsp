@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-	<!-- 헤더 시작 -->
-	<!-- ======================================================== -->
+	<%-- 헤더 시작 --%>
+	<%-- ======================================================== --%>
 	<%@ include file="../common/header.jsp"%>
-	<!-- ======================================================== -->
-	<!-- 헤더 끝 -->
+	<%-- ======================================================== --%>
+	<%-- 헤더 끝 --%>
 
 
-	<!-- 바디 시작 -->
-	<!-- ======================================================== -->
-
+	<%-- 바디 시작 --%>
+	<%-- ======================================================== --%>
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-9 col-md-7 col-lg-7 mx-auto">
@@ -106,15 +106,15 @@
 	
 
 
-	<!-- ======================================================== -->
-	<!-- 바디 끝 -->
+	<%-- ======================================================== --%>
+	<%-- 바디 끝 --%>
 
 
-	<!-- 푸터 시작 -->
-	<!-- ======================================================== -->
+	<%-- 푸터 시작 --%>
+	<%-- ======================================================== --%>
 	<%@ include file="../common/footer.jsp"%>
-	<!-- ======================================================== -->
-	<!-- 푸터 끝 -->
+	<%-- ======================================================== --%>
+	<%-- 푸터 끝 --%>
 	
 	
 	
@@ -123,21 +123,21 @@
 	
 	<script type="text/javascript">
 	
-	/* 주소 api */
+	<%-- 주소 api --%>
 	function fn_find_email_check() {
 	   	
 		new daum.Postcode({
 	    	oncomplete: function(data) {
 		    
-			    document.getElementById("member_post").value = data.zonecode; // 주소 넣기
-			    document.getElementById("member_basicaddress").value = data.address; // 주소 넣기
-			    document.querySelector("input[name=member_detailaddress]").focus(); //상세입력 포커싱
+			    document.getElementById("member_post").value = data.zonecode; <%-- 주소 넣기 --%>
+			    document.getElementById("member_basicaddress").value = data.address; <%-- 주소 넣기 --%>
+			    document.querySelector("input[name=member_detailaddress]").focus(); <%--상세입력 포커싱 --%>
 		    }
 		   }).open();
 	};
 	
 	
-	//모달창 기능
+	<%--모달창 기능 --%>
 	function fnModal(e) {
 			
 		$(".modal-body").html(e);
@@ -146,56 +146,56 @@
 		}
 	};
 	
-	var blank_reg = /[\s]/g;              // 공백체크
+	var blank_reg = /[\s]/g;              <%-- 공백체크 --%>
 
-	var eng_reg = /^[a-zA-z]+$/;          // 영어만
+	var eng_reg = /^[a-zA-z]+$/;          <%-- 영어만 --%>
 	
-	var kor1_reg  = /^[ㄱ-ㅎ가-힣]+$/;       // 한글 유효성 체크
+	var kor1_reg  = /^[ㄱ-ㅎ가-힣]+$/;       <%-- 한글 유효성 체크 --%>
 	
-	var kor2_reg  = /^[ㄱ-ㅎ]+$/;       // 한글 유효성 체크
+	var kor2_reg  = /^[ㄱ-ㅎ]+$/;       <%-- 한글 유효성 체크 --%>
 	
-	var kor3_reg  = /^[가-힣]+$/;       // 한글 유효성 체크
+	var kor3_reg  = /^[가-힣]+$/;       <%-- 한글 유효성 체크 --%>
 	
-	var num_reg  = /^[0-9]*$/;           // 숫자만
+	var num_reg  = /^[0-9]*$/;          <%-- 숫자만 --%>
 
-	//특수문자 유효성 체크
+	<%--특수문자 유효성 체크 --%>
 	var sc_reg = /[`~!@#$%^&*|\\\'\";:\/?]/gi;  
 	
-	var tel_reg = /01[016789][0-9]{3,4}[0-9]{4}/;     // 핸드폰 번호 유효성 체크 
+	var tel_reg = /01[016789][0-9]{3,4}[0-9]{4}/;     <%-- 핸드폰 번호 유효성 체크  --%>
 	
-	var name_reg = /^[가-힣]{2,5}$/;     // 이름 유효성 체크  
+	var name_reg = /^[가-힣]{2,5}$/;    <%-- 이름 유효성 체크 --%>  
 	
 	
-	// 이메일 유효성 체크
+	<%-- 이메일 유효성 체크 --%>
 	var email_reg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; 
 	
 	
-	//비밀번호 유효성 체크   8~16자 영어 숫자 특수문자(!@#$?) 포함 
+	<%--비밀번호 유효성 체크   8~16자 영어 숫자 특수문자(!@#$?) 포함  --%>
 	var password_reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[!@#$?])(?!.*[^a-zA-z0-9!@#$?]).{8,16}$/; 
 	
-	var id_reg = /^[A-Za-z]{1}[A-Za-z0-9]{3,15}$/;   // 아이디 유효성 체크 영어시작 영어숫자조합 4~16자
+	var id_reg = /^[A-Za-z]{1}[A-Za-z0-9]{3,15}$/;   <%-- 아이디 유효성 체크 영어시작 영어숫자조합 4~16자  --%> 
 	
 	$("#member_name").on("blur", function(){
 		
 		var name = $("#member_name").val();
 		
-		if(name == "") {                                       					    // 빈칸 유효성 체크
+		if(name == "") {                                       					    <%-- 빈칸 유효성 체크 --%>
 			document.getElementById("member_name").classList.add("is-invalid");
 			document.getElementById("span-member-name").innerText="이름을 입력해주세요.";
-		} else if (blank_reg.test(name)) {                      		 	 	    // 공백 유효성 체크
+		} else if (blank_reg.test(name)) {                      		 	 	    <%-- 공백 유효성 체크 --%>
 			document.getElementById("member_name").classList.add("is-invalid");
 			document.getElementById("span-member-name").innerText="공백이 존재합니다.";
-		} else if (!(kor3_reg.test(name))) {                                  		// 문자형식 한글 체크
+		} else if (!(kor3_reg.test(name))) {                                  		<%-- 문자형식 한글 체크 --%>
 			document.getElementById("member_name").classList.add("is-invalid");
 			document.getElementById("span-member-name").innerText="문자형식의 한글을 입력해주세요.";
-		} else if (!(name_reg.test(name))) {                                  		// 문자형식 한글 체크
+		} else if (!(name_reg.test(name))) {                                  		<%-- 문자형식 한글 체크 --%>
 			document.getElementById("member_name").classList.add("is-invalid");
 			document.getElementById("span-member-name").innerText="2~5자로 입력해주세요.";
-		} else if (name_reg.test(name)) {                            				// 통과
+		} else if (name_reg.test(name)) {                            				<%-- 통과 --%>
 			document.getElementById("member_name").classList.remove("is-invalid");
 			document.getElementById("member_name").classList.add("is-valid");
 			document.getElementById("span-member-name").innerText="　";
-		}  else {                                              				 		// 유효성 못잡은거 있을때 에러
+		}  else {                                              				 		<%-- 유효성 못잡은거 있을때 에러 --%>
 			document.getElementById("member_name").classList.add("is-invalid");
 			document.getElementById("span-member-name").innerText="에러입니다 유효성체크코드를 확인해주세요";
 		}
@@ -207,23 +207,23 @@
 		
 		var tel = $("#member_tel").val();
 		
-		if(tel == "") {                                       						// 빈칸 유효성 체크
+		if(tel == "") {                                       						<%-- 빈칸 유효성 체크 --%>
 			document.getElementById("member_tel").classList.add("is-invalid");
 			document.getElementById("span-member-tel").innerText="전화번호를 입력해주세요.";
-		} else if (blank_reg.test(tel)) {                      		 	 	    	// 공백 유효성 체크
+		} else if (blank_reg.test(tel)) {                      		 	 	    	<%-- 공백 유효성 체크 --%>
 			document.getElementById("member_tel").classList.add("is-invalid");
 			document.getElementById("span-member-tel").innerText="공백이 존재합니다.";
-		} else if (!(num_reg.test(tel))) {                      		 	 	    // 공백 유효성 체크
+		} else if (!(num_reg.test(tel))) {                      		 	 	    <%-- 공백 유효성 체크 --%>
 			document.getElementById("member_tel").classList.add("is-invalid");
 			document.getElementById("span-member-tel").innerText="숫자만 입력해주세요";
-		} else if (!(tel_reg.test(tel))) {                      		 	 	    // 공백 유효성 체크
+		} else if (!(tel_reg.test(tel))) {                      		 	 	    <%-- 공백 유효성 체크 --%>
 			document.getElementById("member_tel").classList.add("is-invalid");
 			document.getElementById("span-member-tel").innerText="핸드폰 번호가 올바르지 않습니다.";
-		} else if (tel_reg.test(tel)) {                            					// 통과
+		} else if (tel_reg.test(tel)) {                            					<%-- 통과 --%>
 			document.getElementById("member_tel").classList.remove("is-invalid");
 			document.getElementById("member_tel").classList.add("is-valid");
 			document.getElementById("span-member-tel").innerText="　";
-		}  else {                                              				 		// 유효성 못잡은거 있을때 에러
+		}  else {                                              				 		<%-- 유효성 못잡은거 있을때 에러 --%>
 			document.getElementById("member_tel").classList.add("is-invalid");
 			document.getElementById("span-member-tel").innerText="에러입니다 유효성체크코드를 확인해주세요";
 		}
@@ -238,17 +238,14 @@
 		var tel = $("#member_tel").val();
 		
 		if(password == "") {
-			//alert("비밀번호를 입력해주세요.");
 			fnModal("비밀번호를 입력해주세요.");
 			$("#member_password").focus();
 			return false;
 		} else if(name == "" || !(name_reg.test(name))) {
-			//alert("이름을 확인해주세요");
 			fnModal("이름을 확인해주세요");
 			$("#member_name").focus();
 			return false;
 		} else if(tel == "" || !(tel_reg.test(tel))) {
-			//alert("전화번호를 확인해주세요");
 			fnModal("전화번호를 확인해주세요");
 			$("#member_tel").focus();
 			return false;
@@ -263,7 +260,6 @@
 		var password = $("#member_password").val();
 		
 		if(password == "") {
-			//alert("비밀번호를 입력해주세요.")
 			fnModal("비밀번호를 입력해주세요.");
 			document.getElementById("span-member-password").focus();
 			return false;
@@ -271,7 +267,6 @@
 			$("#frm").attr("action","${contextPath}/member/delete").submit();
 			return true;
 		} else {
-			//alert("오류입니다 유효성체크를 다시 해주세요");
 			fnModal("오류입니다 유효성체크를 다시 해주세요");
 			return false;
 		}

@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- 헤더 시작 -->
-<!-- ======================================================== -->
-<%@ include file="../common/header.jsp" %>
-<!-- ======================================================== -->
-<!-- 헤더 끝 -->
+	<%-- 헤더 시작 --%>
+	<%-- ======================================================== --%>
+	<%@ include file="../common/header.jsp"%>
+	<%-- ======================================================== --%>
+	<%-- 헤더 끝 --%>
 
 
-<!-- 바디 시작 -->
-<!-- ======================================================== -->
+	<%-- 바디 시작 --%>
+	<%-- ======================================================== --%>
 	<div class="board-computer">
 		<div class="container-fluid">
 			<div class="row">
@@ -182,28 +182,28 @@
 			</div>
 		</div>
 	</div>	
-<!-- ======================================================== -->
-<!-- 바디 끝 -->
+	<%-- ======================================================== --%>
+	<%-- 바디 끝 --%>
 
 
-<!-- 푸터 시작 -->
-<!-- ======================================================== -->
-<%@ include file="../common/footer.jsp" %>
-<!-- ======================================================== -->
-<!-- 푸터 끝 -->
+	<%-- 푸터 시작 --%>
+	<%-- ======================================================== --%>
+	<%@ include file="../common/footer.jsp"%>
+	<%-- ======================================================== --%>
+	<%-- 푸터 끝 --%>
 
 <script defer type="text/javascript">
 
-//================================================================================================================
-// boardModify.jsp  
+<%--================================================================================================================ --%>
+<%-- boardModify.jsp --%>  
 
 	var csrf_headername = "${_csrf.headerName}"; 
 	var csrf_token = "${_csrf.token}";
 	
 	
-	//파일 유효성 검사
+	<%--파일 유효성 검사 --%>
 	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-	var maxSize = 5242880; //5MB
+	var maxSize = 5242880; <%--5MB --%>
 	  
 	function checkExtension(fileName, fileSize) {
 		if(fileSize >= maxSize) {
@@ -219,7 +219,7 @@
 		return true;
 	}
 
-	//화면 진입시 현재 존재하는 파일 뿌려주기
+	<%--화면 진입시 현재 존재하는 파일 뿌려주기 --%>
 	var board_no = "${boardInfo.board_no}";
 	
 	$.getJSON("${contextPath}/board/BoardFileList", {board_no : board_no}, function(arr) {
@@ -254,7 +254,7 @@
 		$("#picture-mobile-board-modify").append(str);
 	
 });
-	//모달창 기능
+	<%--모달창 기능 --%>
 	function fnModal(e) {
 			
 			$(".modal-body").html(e);
@@ -264,8 +264,8 @@
 		};
 	
 	
-	// 컴퓨터단
-	// 컴퓨터 글 등록 버튼
+	<%-- 컴퓨터단 --%>
+	<%-- 컴퓨터 글 등록 버튼 --%>
 	$("#btn-computer-board-modify").on("click",function(e){
 		e.preventDefault();
 		
@@ -296,7 +296,7 @@
 	
 	
 	
-	//컴퓨터 파일 업로드
+	<%--컴퓨터 파일 업로드 --%>
 	$("#file-computer-board-modify").on("change", function(e){
 		
 		var formData = new FormData();
@@ -327,20 +327,20 @@
 			success: function(result){
 				showUploadResult(result);  
 			}
-		}); //$.ajax
+		}); 
 		
 	});
 	
 	
 	
-	//컴퓨터 이미지 삭제
+	<%--컴퓨터 이미지 삭제 --%>
 	$("#picture-computer-board-modify").on("click", "button", function(e) {
 	    
 		console.log("delete file");
 		      
 		var targetFile = $(this).data("file");
 		var type = $(this).data("type");
-		var targetdiv = $(this).closest("div");   // 가장 가까운 div
+		var targetdiv = $(this).closest("div");   <%-- 가장 가까운 div --%>
 		    
 		$.ajax({
 			url: "${contextPath}/board/BoardFileDelete",
@@ -354,12 +354,12 @@
 		           
 				targetdiv.remove();
 			}
-		}); //$.ajax
+		}); 
 	});
 	
 	
-	//모바일단
-	//모바일 글 등록 버튼
+	<%--모바일단 --%>
+	<%--모바일 글 등록 버튼 --%>
 	$("#btn-mobile-board-modify").on("click",function(e){
 		e.preventDefault();
 		
@@ -388,7 +388,7 @@
 	});
 	
 	
-	//모바일 파일 업로드
+	<%--모바일 파일 업로드 --%>
 	$("#file-mobile-board-modify").on("change", function(e){
 		
 		var formData = new FormData();
@@ -419,19 +419,19 @@
 			success: function(result){
 				showUploadResult(result);  
 			}
-		}); //$.ajax
+		}); 
 		
 	});
 	
 	
-	//모바일 이미지 삭제
+	<%--모바일 이미지 삭제 --%>
 	$("#picture-mobile-board-modify").on("click", "button", function(e) {
 	    
 		console.log("delete file");
 		      
 		var targetFile = $(this).data("file");
 		var type = $(this).data("type");
-		var targetdiv = $(this).closest("div");   // 가장 가까운 div
+		var targetdiv = $(this).closest("div");   <%-- 가장 가까운 div --%>
 		    
 		$.ajax({
 			url: "${contextPath}/board/BoardFileDelete",
@@ -444,11 +444,11 @@
 			success: function(result){
 				targetdiv.remove();
 			}
-		}); //$.ajax
+		}); 
 	});
 	
 	
-	// 모바일 컴퓨터 이미지 보여주기
+	<%-- 모바일 컴퓨터 이미지 보여주기 --%>
 	function showUploadResult(uploadResultArr) {
 		
 		if(!uploadResultArr || uploadResultArr.length == 0) { 
@@ -483,8 +483,8 @@
 			
 			
 		});
-			$("#picture-computer-board-modify").append(str);  // 컴퓨터단
-			$("#picture-mobile-board-modify").append(str);    // 모바일단
+			$("#picture-computer-board-modify").append(str);  <%-- 컴퓨터단 --%>
+			$("#picture-mobile-board-modify").append(str);    <%-- 모바일단 --%>
 	}
 	
 	

@@ -1,14 +1,14 @@
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<!-- 헤더 시작 -->
-	<!-- ======================================================== -->
+	<%-- 헤더 시작 --%>
+	<%-- ======================================================== --%>
 	<%@ include file="../common/header.jsp"%>
-	<!-- ======================================================== -->
-	<!-- 헤더 끝 -->
+	<%-- ======================================================== --%>
+	<%-- 헤더 끝 --%>
 
 
-	<!-- 바디 시작 -->
-	<!-- ======================================================== -->
+	<%-- 바디 시작 --%>
+	<%-- ======================================================== --%>
 
 	<div class="container">
 		<div class="row">
@@ -262,33 +262,33 @@
 		</div>
 	</div>
 
-	<!-- ======================================================== -->
-	<!-- 바디 끝 -->
+	<%-- ======================================================== --%>
+	<%-- 바디 끝 --%>
 
 
-	<!-- 푸터 시작 -->
-	<!-- ======================================================== -->
+	<%-- 푸터 시작 --%>
+	<%-- ======================================================== --%>
 	<%@ include file="../common/footer.jsp"%>
-	<!-- ======================================================== -->
-	<!-- 푸터 끝 -->
+	<%-- ======================================================== --%>
+	<%-- 푸터 끝 --%>
 	
 	
 	<script type="text/javascript">
 	
-	//지도 api
+	<%--지도 api --%>
 	function post_zip() {
 	   	
 		new daum.Postcode({
 	    	oncomplete: function(data) {
 		    
-			    document.getElementById("member_post").value = data.zonecode; // 주소 넣기
-			    document.getElementById("member_basicaddress").value = data.address; // 주소 넣기
-			    document.querySelector("input[name=member_detailaddress]").focus(); //상세입력 포커싱
+			    document.getElementById("member_post").value = data.zonecode; <%--  주소 넣기 --%>
+			    document.getElementById("member_basicaddress").value = data.address; <%-- 주소 넣기 --%>
+			    document.querySelector("input[name=member_detailaddress]").focus(); <%--상세입력 포커싱 --%>
 		    }
 		   }).open();
 	};
 	
-	//모달창 기능
+	<%--모달창 기능 --%>
 	function fnModal(e) {
 			
 			$(".modal-body").html(e);
@@ -299,66 +299,36 @@
 	
 	
 	
-	/* 정규표현식 */
-	//정리중
+		<%-- 정규표현식  --%>
 	
-	var reg1  = /^[ㄱ-ㅎ가-힣]+$/; 				// 한글만
-	var reg2  = /^[a-zA-z]+$/; 					// 영문만
-	var reg3  = /^[a-z]+$/; 					// 영문 소문자만
-	var reg4  = /^[A-Z]+$/; 					// 영문 대문자만
-	var reg5  = /^[가-힣a-zA-Z]+$/; 				// 한글 + 영문만
-	var reg6  = /^[0-9]*$/;       				// 숫자만
-	var reg7  = /^[a-zA-Z0-9]*$/;     			// 대소문자 + 숫자
-	
-	//이메일
-	var reg8  =  /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-	
-	var reg11 = /^[A-Za-z0-9+]{4,12}$/;			//영어 숫자 범위잡기 
-    var reg12 = /[\s]/g;                        //공백체크
-    var reg13 = /[`~!@#$%^&*|\\\'\";:\/?]/gi;   
-   
-    //비밀번호 영어 숫자 특수문자 조합의 8~16자
-    var reg14 = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[!@#$?])(?!.*[^a-zA-z0-9!@#$?]).{8,16}$/                   
-	var reg15 = /^[A-Za-z]{1}[A-Za-z0-9]{3,15}$/;   // 영어시작 영어숫자조합 4~16자
-	var reg16  = /^[ㄱ-ㅎ가-힣]{2,5}$/; 				// 한글만
-	
-	
-	var id_reg = /^[a-zA-Z0-9]{4,12}$/; //id와 pwassword 유효성 검사 정규식//이메일 유효성검사
-    var e_reg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    var n_reg = /^[가-힣]{2,15}$/; //이름 유효성검사 정규식
-	
-	var nameregex = /[가-힣]{2,5}/;  //한글만 입력 2~5자
-	
-	
-	/* ======================================================================= */
-	var blank_reg = /[\s]/g;              // 공백체크
+	var blank_reg = /[\s]/g;              <%-- 공백체크 --%>
 
-	var eng_reg = /^[a-zA-z]+$/;          // 영어만
+	var eng_reg = /^[a-zA-z]+$/;          <%-- 영어만 --%>
 	
-	var kor1_reg  = /^[ㄱ-ㅎ가-힣]+$/;       // 한글 유효성 체크
+	var kor1_reg  = /^[ㄱ-ㅎ가-힣]+$/;       <%-- 한글 유효성 체크 --%>
 	
-	var kor2_reg  = /^[ㄱ-ㅎ]+$/;       // 한글 유효성 체크
+	var kor2_reg  = /^[ㄱ-ㅎ]+$/;       <%-- 한글 유효성 체크 --%>
 	
-	var kor3_reg  = /^[가-힣]+$/;       // 한글 유효성 체크
+	var kor3_reg  = /^[가-힣]+$/;       <%-- 한글 유효성 체크 --%>
 	
-	var num_reg  = /^[0-9]*$/;           // 숫자만
+	var num_reg  = /^[0-9]*$/;           <%-- 숫자만 --%>
 
-	//특수문자 유효성 체크
+	<%--특수문자 유효성 체크 --%>
 	var sc_reg = /[`~!@#$%^&*|\\\'\";:\/?]/gi;  
 	
-	var tel_reg = /01[016789][0-9]{3,4}[0-9]{4}/;     // 핸드폰 번호 유효성 체크 
+	var tel_reg = /01[016789][0-9]{3,4}[0-9]{4}/;     <%-- 핸드폰 번호 유효성 체크  --%>
 	
-	var name_reg = /^[가-힣]{2,5}$/;     // 이름 유효성 체크  
+	var name_reg = /^[가-힣]{2,5}$/;     <%-- 이름 유효성 체크  --%> 
 	
 	
-	// 이메일 유효성 체크
+	<%-- 이메일 유효성 체크 --%>
 	var email_reg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; 
 	
 	
-	//비밀번호 유효성 체크   8~16자 영어 숫자 특수문자(!@#$?) 포함 
+	<%--비밀번호 유효성 체크   8~16자 영어 숫자 특수문자(!@#$?) 포함  --%>
 	var password_reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[!@#$?])(?!.*[^a-zA-z0-9!@#$?]).{8,16}$/; 
 	
-	var id_reg = /^[A-Za-z]{1}[A-Za-z0-9]{3,15}$/;   // 아이디 유효성 체크 영어시작 영어숫자조합 4~16자
+	var id_reg = /^[A-Za-z]{1}[A-Za-z0-9]{3,15}$/;   <%-- 아이디 유효성 체크 영어시작 영어숫자조합 4~16자 --%>
 	
 	
 	
@@ -376,25 +346,25 @@
 			
 			var id = $("#member_id").val();
 			
-			if(id == "") {                                        // 빈칸 유효성 체크
+			if(id == "") {                                        <%-- 빈칸 유효성 체크 --%>
 				document.getElementById("member_id").classList.add("is-invalid");
 				document.getElementById("span-member-id").innerText="아이디를 입력해주세요.";
-			} else if (blank_reg.test(id)) {                      // 공백 유효성 체크
+			} else if (blank_reg.test(id)) {                      <%-- 공백 유효성 체크 --%>
 				document.getElementById("member_id").classList.add("is-invalid");
 				document.getElementById("span-member-id").innerText="공백이 존재합니다.";
-			} else if (sc_reg.test(id)) {                         // 특수문자 유효성 체크
+			} else if (sc_reg.test(id)) {                         <%-- 특수문자 유효성 체크 --%>
 				document.getElementById("member_id").classList.add("is-invalid");
 				document.getElementById("span-member-id").innerText="특수문자는 입력할 수 없습니다.";
-			} else if (kor1_reg.test(id)) {                         // 한글 입력불가 유효성 체크
+			} else if (kor1_reg.test(id)) {                         <%-- 한글 입력불가 유효성 체크 --%>
 				document.getElementById("member_id").classList.add("is-invalid");
 				document.getElementById("span-member-id").innerText="한글은 입력할 수 없습니다.";
-			} else if (!(eng_reg.test(id.substr(0,1)))) {          // 첫글자 영어 유효성 체크
+			} else if (!(eng_reg.test(id.substr(0,1)))) {          <%-- 첫글자 영어 유효성 체크 --%>
 				document.getElementById("member_id").classList.add("is-invalid");
 				document.getElementById("span-member-id").innerText="첫글자는 영어로 시작해주세요";
-			} else if (!(id_reg.test(id))) {                       // 아이디 영어 숫자 조합 4~16자
+			} else if (!(id_reg.test(id))) {                       <%-- 아이디 영어 숫자 조합 4~16자 --%>
 				document.getElementById("member_id").classList.add("is-invalid");
 				document.getElementById("span-member-id").innerText="영어와 숫자로 이루어진 4~16자를 입력해주세요";
-			}  else if (id_reg.test(id)) {                         // 아이디 중복체크
+			}  else if (id_reg.test(id)) {                        <%-- 아이디 중복체크 --%>
 				
 				var member_id = $("#member_id").val();
 				var form1 = {
@@ -432,7 +402,7 @@
 					
 				});
 				
-			}  else {                                              // 유효성 못잡은거 있을때 에러
+			}  else {                                              <%-- 유효성 못잡은거 있을때 에러 --%>
 				document.getElementById("member_id").classList.add("is-invalid");
 				document.getElementById("span-member-id").innerText="에러입니다 유효성체크코드를 확인해주세요";
 			}
@@ -446,34 +416,34 @@
 			var password = $("#member_password").val();
 			var password_check = $("#member_password_check").val();
 			
-			if(password == "") {                                       			 // 빈칸 유효성 체크
+			if(password == "") {                                       			 <%-- 빈칸 유효성 체크 --%>
 				document.getElementById("member_password").classList.add("is-invalid");
 				document.getElementById("span-member-password").innerText="비밀번호를 입력해주세요.";
-			} else if (blank_reg.test(password)) {                      		 // 공백 유효성 체크
+			} else if (blank_reg.test(password)) {                      		 <%-- 공백 유효성 체크 --%>
 				document.getElementById("member_password").classList.add("is-invalid");
 				document.getElementById("span-member-password").innerText="공백이 존재합니다.";
-			} else if (!(password_reg.test(password))) {                         // 영어 숫자 특수문자(!@#$?) 조합 8~16자
+			} else if (!(password_reg.test(password))) {                         <%-- 영어 숫자 특수문자(!@#$?) 조합 8~16자 --%>
 				document.getElementById("member_password").classList.add("is-invalid");
 				document.getElementById("span-member-password").innerText="영문/숫자/특수문자(!@#$?)가 포함된 8~16자로 이루어져야합니다.";
-			} else if (password_reg.test(password)) {                            // 통과
+			} else if (password_reg.test(password)) {                            <%-- 통과 --%>
 				document.getElementById("member_password").classList.remove("is-invalid");
 				document.getElementById("member_password").classList.add("is-valid");
 				document.getElementById("span-member-password").innerText="　";
-			} else {                                              				 // 유효성 못잡은거 있을때 에러
+			} else {                                              				 <%-- 유효성 못잡은거 있을때 에러 --%>
 				document.getElementById("member_password").classList.add("is-invalid");
 				document.getElementById("span-member-password").innerText="에러입니다 유효성체크코드를 확인해주세요";
 			}
 			
-			if(password_check != "") { // 비밀번호 체크 입력후 다시 비밀번호 창에 비번 변경할때 다시 비번확인과 비교하는 로직
+			if(password_check != "") { <%-- 비밀번호 체크 입력후 다시 비밀번호 창에 비번 변경할때 다시 비번확인과 비교하는 로직 --%>
 				
 				if (password_check != password) {
 					document.getElementById("member_password_check").classList.add("is-invalid");
 					document.getElementById("span-member-password-check").innerText="비밀번호가 일치하지않습니다.";
-				} else if (password_check == password) {                            		// 통과
+				} else if (password_check == password) {                            		<%-- 통과 --%>
 					document.getElementById("member_password_check").classList.remove("is-invalid");
 					document.getElementById("member_password_check").classList.add("is-valid");
 					document.getElementById("span-member-password-check").innerText="　";
-				}  else {                                              				 		// 유효성 못잡은거 있을때 에러
+				}  else {                                              				 		<%-- 유효성 못잡은거 있을때 에러 --%>
 					document.getElementById("member_password_check").classList.add("is-invalid");
 					document.getElementById("span-member-password-check").innerText="에러입니다 유효성체크코드를 확인해주세요";
 				}
@@ -488,20 +458,20 @@
 			var password = $("#member_password").val();
 			var password_check = $("#member_password_check").val();
 			
-			if(password_check == "") {                                       			 // 빈칸 유효성 체크
+			if(password_check == "") {                                       			 <%-- 빈칸 유효성 체크 --%>
 				document.getElementById("member_password_check").classList.add("is-invalid");
 				document.getElementById("span-member-password-check").innerText="비밀번호확인을 입력해주세요.";
-			} else if (blank_reg.test(password_check)) {                      		     // 공백 유효성 체크
+			} else if (blank_reg.test(password_check)) {                      		     <%-- 공백 유효성 체크 --%>
 				document.getElementById("member_password_check").classList.add("is-invalid");
 				document.getElementById("span-member-password-check").innerText="공백이 존재합니다.";
-			} else if (password_check != password) {                                  // 비밀번호 비교
+			} else if (password_check != password) {                                  <%-- 비밀번호 비교 --%>
 				document.getElementById("member_password_check").classList.add("is-invalid");
 				document.getElementById("span-member-password-check").innerText="비밀번호가 일치하지않습니다.";
-			} else if (password_check == password) {                            		// 통과
+			} else if (password_check == password) {                            		<%-- 통과 --%>
 				document.getElementById("member_password_check").classList.remove("is-invalid");
 				document.getElementById("member_password_check").classList.add("is-valid");
 				document.getElementById("span-member-password-check").innerText="　";
-			}  else {                                              				 		// 유효성 못잡은거 있을때 에러
+			}  else {                                              				 		<%-- 유효성 못잡은거 있을때 에러 --%>
 				document.getElementById("member_password_check").classList.add("is-invalid");
 				document.getElementById("span-member-password-check").innerText="에러입니다 유효성체크코드를 확인해주세요";
 			}
@@ -514,23 +484,23 @@
 			
 			var name = $("#member_name").val();
 			
-			if(name == "") {                                       					    // 빈칸 유효성 체크
+			if(name == "") {                                       					    <%-- 빈칸 유효성 체크 --%>
 				document.getElementById("member_name").classList.add("is-invalid");
 				document.getElementById("span-member-name").innerText="이름을 입력해주세요.";
-			} else if (blank_reg.test(name)) {                      		 	 	    // 공백 유효성 체크
+			} else if (blank_reg.test(name)) {                      		 	 	    <%-- 공백 유효성 체크 --%>
 				document.getElementById("member_name").classList.add("is-invalid");
 				document.getElementById("span-member-name").innerText="공백이 존재합니다.";
-			} else if (!(kor3_reg.test(name))) {                                  		// 문자형식 한글 체크
+			} else if (!(kor3_reg.test(name))) {                                  		<%-- 문자형식 한글 체크 --%>
 				document.getElementById("member_name").classList.add("is-invalid");
 				document.getElementById("span-member-name").innerText="문자형식의 한글을 입력해주세요.";
-			} else if (!(name_reg.test(name))) {                                  		// 문자형식 한글 체크
+			} else if (!(name_reg.test(name))) {                                  		<%-- 문자형식 한글 체크 --%>
 				document.getElementById("member_name").classList.add("is-invalid");
 				document.getElementById("span-member-name").innerText="2~5자로 입력해주세요.";
-			} else if (name_reg.test(name)) {                            				// 통과
+			} else if (name_reg.test(name)) {                            				<%-- 통과 --%>
 				document.getElementById("member_name").classList.remove("is-invalid");
 				document.getElementById("member_name").classList.add("is-valid");
 				document.getElementById("span-member-name").innerText="　";
-			}  else {                                              				 		// 유효성 못잡은거 있을때 에러
+			}  else {                                              				 		<%-- 유효성 못잡은거 있을때 에러 --%>
 				document.getElementById("member_name").classList.add("is-invalid");
 				document.getElementById("span-member-name").innerText="에러입니다 유효성체크코드를 확인해주세요";
 			}
@@ -540,8 +510,8 @@
 		
 		$("#member_post").on("change",function() {
 			
-				document.getElementById("member_post").classList.add("is-valid");           // 적합 표시
-				document.getElementById("member_basicaddress").classList.add("is-valid");   // 적합 표시
+				document.getElementById("member_post").classList.add("is-valid");           <%-- 적합 표시 --%>
+				document.getElementById("member_basicaddress").classList.add("is-valid");   <%-- 적합 표시 --%>
 		});
 			
 		
@@ -552,13 +522,13 @@
 			}
 			var email = $("#member_email").val();
 			
-			if(email == "") {                                       					// 빈칸 유효성 체크
+			if(email == "") {                                       					<%-- 빈칸 유효성 체크 --%>
 				document.getElementById("member_email").classList.add("is-invalid");
 				document.getElementById("span-member-email").innerText="이메일을 입력해주세요.";
-			} else if (blank_reg.test(email)) {                      		 	 	    // 공백 유효성 체크
+			} else if (blank_reg.test(email)) {                      		 	 	    <%-- 공백 유효성 체크 --%>
 				document.getElementById("member_email").classList.add("is-invalid");
 				document.getElementById("span-member-email").innerText="공백이 존재합니다.";
-			} else if (!(email_reg.test(email))) {                      		 	 	// 이메일 형식 유효성 체크
+			} else if (!(email_reg.test(email))) {                      		 	 	<%-- 이메일 형식 유효성 체크 --%>
 				document.getElementById("member_email").classList.add("is-invalid");
 				document.getElementById("span-member-email").innerText="이메일 형식으로 입력해주세요.";
 			}  else if (email_reg.test(email)) {                                              				 		
@@ -573,16 +543,16 @@
 						},
 						success : function(result) {
 							
-							if (result) { 																				//이메일 중복
-								document.getElementById("member_email").classList.add("is-invalid");					// 부적합
-								document.getElementById("member_email").value="";										// 이메일 내용 삭제
-								document.getElementById("span-member-email").innerText= email + "은 중복된 이메일입니다.";		// 메시지 출력
+							if (result) { 																				<%-- 이메일 중복 --%>
+								document.getElementById("member_email").classList.add("is-invalid");					<%-- 부적합 --%>
+								document.getElementById("member_email").value="";										<%-- 이메일 내용 삭제 --%>
+								document.getElementById("span-member-email").innerText= email + "은 중복된 이메일입니다.";		<%-- 메시지 출력 --%>
 								return false;
-							} else if(!result) { 																		// 이메일 중복아님
-								document.getElementById("member_email").classList.remove("is-invalid");					// 적합
-								document.getElementById("span-member-email").innerText="　";								// 메시지 삭제
+							} else if(!result) { 																		<%-- 이메일 중복아님 --%>
+								document.getElementById("member_email").classList.remove("is-invalid");					<%-- 적합 --%>
+								document.getElementById("span-member-email").innerText="　";								<%-- 메시지 삭제 --%>
 							} else {
-								alert("ajax success but error"); //테스트용 이거 삭제해야함===========================================
+								alert("ajax success but error"); 
 							}
 							
 						}, 
@@ -612,13 +582,13 @@
 					member_email: member_email
 	        }
 			
-			if(email == "") {                                       					// 빈칸 유효성 체크
+			if(email == "") {                                       					<%-- 빈칸 유효성 체크 --%>
 				document.getElementById("member_email").classList.add("is-invalid");
 				document.getElementById("span-member-email").innerText="이메일을 입력해주세요.";
-			} else if (blank_reg.test(email)) {                      		 	 	    // 공백 유효성 체크
+			} else if (blank_reg.test(email)) {                      		 	 	    <%-- 공백 유효성 체크 --%>
 				document.getElementById("member_email").classList.add("is-invalid");
 				document.getElementById("span-member-email").innerText="공백이 존재합니다.";
-			} else if (!(email_reg.test(email))) {                      		 	 	// 이메일 형식 유효성 체크
+			} else if (!(email_reg.test(email))) {                      		 	 	<%-- 이메일 형식 유효성 체크 --%>
 				document.getElementById("member_email").classList.add("is-invalid");
 				document.getElementById("span-member-email").innerText="이메일 형식으로 입력해주세요.";
 			} else if (email_reg.test(email)) {
@@ -663,14 +633,14 @@
 			var email_authentication_check = $("#member_email_check").val();
 			if(email_authentication == email_authentication_check ) {
 				fnModal("인증 성공");
-				document.getElementById("member_email").classList.add("is-valid");  				  //초록표시
-				document.getElementById("member_email").readOnly=true;	            				  // readOnly 처리
-				document.getElementById("member_email").classList.add("pe-none");   				  // 상호작용 x 처리
-				document.getElementById("btn-email").classList.add("pe-none");      				  // 상호작용 x 처리
-				document.getElementById("join-email-check").style.display = "none";					  // 인증창 숨김
+				document.getElementById("member_email").classList.add("is-valid");  				  <%-- 초록표시 --%>
+				document.getElementById("member_email").readOnly=true;	            				  <%-- readOnly 처리 --%>
+				document.getElementById("member_email").classList.add("pe-none");   				  <%-- 상호작용 x 처리 --%>
+				document.getElementById("btn-email").classList.add("pe-none");      				  <%-- 상호작용 x 처리 --%>
+				document.getElementById("join-email-check").style.display = "none";					  <%-- 인증창 숨김 --%>
 			} else {
-				document.getElementById("member_email_check").classList.add("is-invalid");  	      // 빨간 표시
-				document.getElementById("span-member-email-check").innerText="인증번호를 다시 확인해주세요."; //해당 오류 표시
+				document.getElementById("member_email_check").classList.add("is-invalid");  	      <%-- 빨간 표시 --%>
+				document.getElementById("span-member-email-check").innerText="인증번호를 다시 확인해주세요."; <%--해당 오류 표시 --%>
 			}
 			
 		});
@@ -680,23 +650,23 @@
 			
 			var tel = $("#member_tel").val();
 			
-			if(tel == "") {                                       						// 빈칸 유효성 체크
+			if(tel == "") {                                       						<%-- 빈칸 유효성 체크 --%>
 				document.getElementById("member_tel").classList.add("is-invalid");
 				document.getElementById("span-member-tel").innerText="전화번호를 입력해주세요.";
-			} else if (blank_reg.test(tel)) {                      		 	 	    	// 공백 유효성 체크
+			} else if (blank_reg.test(tel)) {                      		 	 	    	<%-- 공백 유효성 체크 --%>
 				document.getElementById("member_tel").classList.add("is-invalid");
 				document.getElementById("span-member-tel").innerText="공백이 존재합니다.";
-			} else if (!(num_reg.test(tel))) {                      		 	 	    // 숫자 유효성 체크
+			} else if (!(num_reg.test(tel))) {                      		 	 	    <%-- 숫자 유효성 체크 --%>
 				document.getElementById("member_tel").classList.add("is-invalid");
 				document.getElementById("span-member-tel").innerText="숫자만 입력해주세요";
-			} else if (!(tel_reg.test(tel))) {                      		 	 	    // 핸드폰번호 유효성 체크
+			} else if (!(tel_reg.test(tel))) {                      		 	 	    <%-- 핸드폰번호 유효성 체크 --%>
 				document.getElementById("member_tel").classList.add("is-invalid");
 				document.getElementById("span-member-tel").innerText="핸드폰 번호가 올바르지 않습니다.";
-			} else if (tel_reg.test(tel)) {                            					// 통과
+			} else if (tel_reg.test(tel)) {                            					<%-- 통과 --%>
 				document.getElementById("member_tel").classList.remove("is-invalid");
 				document.getElementById("member_tel").classList.add("is-valid");
 				document.getElementById("span-member-tel").innerText="　";
-			}  else {                                              				 		// 유효성 못잡은거 있을때 에러
+			}  else {                                              				 		<%-- 유효성 못잡은거 있을때 에러 --%>
 				document.getElementById("member_tel").classList.add("is-invalid");
 				document.getElementById("span-member-tel").innerText="에러입니다 유효성체크코드를 확인해주세요";
 			}
@@ -705,8 +675,8 @@
 		});
 		
 		
-		/* ============================================================================= */
-		/*
+		<%-- ============================================================================= --%>
+		
 		$("#btn-login").on("click",function(e) {
 			
 			
@@ -765,7 +735,7 @@
 			return true;
 			
 		});
-		*/
+		
 	}); 
 	</script>
 	

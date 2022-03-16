@@ -34,7 +34,7 @@ public class CustomUserLoginAuthenticationProvider implements AuthenticationProv
 
 			throw new AuthenticationServiceException(id);
 
-		} else if (!passwordEncoder.matches(password, userInfo.getPassword())) {  // 계정이 존재하지 않음
+		} else if (!passwordEncoder.matches(password, userInfo.getPassword())) {  // 비밀번호 불일치
 
 			throw new BadCredentialsException(id);
 

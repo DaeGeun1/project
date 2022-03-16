@@ -53,10 +53,10 @@
 		        document.documentElement.classList.remove("no-js");
 		        document.documentElement.classList.add("js");
 
-		        // Out advancer buttons
+		        <%--  Out advancer buttons --%>
 		        var pnAdvancerLeft = document.getElementById("pnAdvancerLeft");
 		        var pnAdvancerRight = document.getElementById("pnAdvancerRight");
-		        // the indicator
+		        <%--  the indicator --%>
 		        var pnIndicator = document.getElementById("pnIndicator");
 
 		        var pnProductNav = document.getElementById("pnProductNav");
@@ -64,10 +64,10 @@
 
 		        pnProductNav.setAttribute("data-overflowing", determineOverflow(pnProductNavContents, pnProductNav));
 
-		        // Set the indicator
+		        <%--  Set the indicator --%>
 		        moveIndicator(pnProductNav.querySelector("[aria-selected=\"true\"]"), colours[0]);
 
-		        // Handle the scroll of the horizontal container
+		        <%--  Handle the scroll of the horizontal container --%>
 		        var last_known_scroll_position = 0;
 		        var ticking = false;
 
@@ -88,71 +88,71 @@
 
 
 		        pnAdvancerLeft.addEventListener("click", function() {
-		            // If in the middle of a move return
+		        	<%--  If in the middle of a move return --%>
 		            if (SETTINGS.navBarTravelling === true) {
 		                return;
 		            }
-		            // If we have content overflowing both sides or on the left
+		            <%--  If we have content overflowing both sides or on the left --%>
 		            if (determineOverflow(pnProductNavContents, pnProductNav) === "left" || determineOverflow(pnProductNavContents, pnProductNav) === "both") {
-		                // Find how far this panel has been scrolled
+		            	<%--  Find how far this panel has been scrolled --%>
 		                var availableScrollLeft = pnProductNav.scrollLeft;
-		                // If the space available is less than two lots of our desired distance, just move the whole amount
-		                // otherwise, move by the amount in the settings
+		                <%--  If the space available is less than two lots of our desired distance, just move the whole amount --%>
+		               <%--  otherwise, move by the amount in the settings --%>
 		                if (availableScrollLeft < SETTINGS.navBarTravelDistance * 2) {
 		                    pnProductNavContents.style.transform = "translateX(" + availableScrollLeft + "px)";
 		                } else {
 		                    pnProductNavContents.style.transform = "translateX(" + SETTINGS.navBarTravelDistance + "px)";
 		                }
-		                // We do want a transition (this is set in CSS) when moving so remove the class that would prevent that
+		                <%--  We do want a transition (this is set in CSS) when moving so remove the class that would prevent that --%>
 		                pnProductNavContents.classList.remove("pn-ProductNav_Contents-no-transition");
-		                // Update our settings
+		                <%--  Update our settings --%>
 		                SETTINGS.navBarTravelDirection = "left";
 		                SETTINGS.navBarTravelling = true;
 		            }
-		            // Now update the attribute in the DOM
+		            <%--  Now update the attribute in the DOM --%>
 		            pnProductNav.setAttribute("data-overflowing", determineOverflow(pnProductNavContents, pnProductNav));
 		        });
 
 		        pnAdvancerRight.addEventListener("click", function() {
-		            // If in the middle of a move return
+		        	<%--  If in the middle of a move return --%>
 		            if (SETTINGS.navBarTravelling === true) {
 		                return;
 		            }
-		            // If we have content overflowing both sides or on the right
+		            <%--  If we have content overflowing both sides or on the right --%>
 		            if (determineOverflow(pnProductNavContents, pnProductNav) === "right" || determineOverflow(pnProductNavContents, pnProductNav) === "both") {
-		                // Get the right edge of the container and content
+		            	<%--  Get the right edge of the container and content --%>
 		                var navBarRightEdge = pnProductNavContents.getBoundingClientRect().right;
 		                var navBarScrollerRightEdge = pnProductNav.getBoundingClientRect().right;
-		                // Now we know how much space we have available to scroll
+		                <%--  Now we know how much space we have available to scroll --%>
 		                var availableScrollRight = Math.floor(navBarRightEdge - navBarScrollerRightEdge);
-		                // If the space available is less than two lots of our desired distance, just move the whole amount
-		                // otherwise, move by the amount in the settings
+		                <%--  If the space available is less than two lots of our desired distance, just move the whole amount --%>
+		               <%--  otherwise, move by the amount in the settings --%>
 		                if (availableScrollRight < SETTINGS.navBarTravelDistance * 2) {
 		                    pnProductNavContents.style.transform = "translateX(-" + availableScrollRight + "px)";
 		                } else {
 		                    pnProductNavContents.style.transform = "translateX(-" + SETTINGS.navBarTravelDistance + "px)";
 		                }
-		                // We do want a transition (this is set in CSS) when moving so remove the class that would prevent that
+		                <%--  We do want a transition (this is set in CSS) when moving so remove the class that would prevent that --%>
 		                pnProductNavContents.classList.remove("pn-ProductNav_Contents-no-transition");
-		                // Update our settings
+		                <%--  Update our settings --%>
 		                SETTINGS.navBarTravelDirection = "right";
 		                SETTINGS.navBarTravelling = true;
 		            }
-		            // Now update the attribute in the DOM
+		            <%--  Now update the attribute in the DOM --%>
 		            pnProductNav.setAttribute("data-overflowing", determineOverflow(pnProductNavContents, pnProductNav));
 		        });
 
 		        pnProductNavContents.addEventListener(
 		            "transitionend",
 		            function() {
-		                // get the value of the transform, apply that to the current scroll position (so get the scroll pos first) and then remove the transform
+		            	<%--  get the value of the transform, apply that to the current scroll position (so get the scroll pos first) and then remove the transform --%>
 		                var styleOfTransform = window.getComputedStyle(pnProductNavContents, null);
 		                var tr = styleOfTransform.getPropertyValue("-webkit-transform") || styleOfTransform.getPropertyValue("transform");
-		                // If there is no transition we want to default to 0 and not null
+		                <%--  If there is no transition we want to default to 0 and not null --%>
 		                var amount = Math.abs(parseInt(tr.split(",")[4]) || 0);
 		                pnProductNavContents.style.transform = "none";
 		                pnProductNavContents.classList.add("pn-ProductNav_Contents-no-transition");
-		                // Now lets set the scroll position
+		                <%--  Now lets set the scroll position --%>
 		                if (SETTINGS.navBarTravelDirection === "left") {
 		                    pnProductNav.scrollLeft = pnProductNav.scrollLeft - amount;
 		                } else {
@@ -163,18 +163,18 @@
 		            false
 		        );
 
-		        // Handle setting the currently active link
+		        <%--  Handle setting the currently active link --%>
 		        pnProductNavContents.addEventListener("click", function(e) {
 		            var links = [].slice.call(document.querySelectorAll(".pn-ProductNav_Link"));
 		            links.forEach(function(item) {
 		                item.setAttribute("aria-selected", "false");
 		            })
 		            e.target.setAttribute("aria-selected", "true");
-		            // Pass the clicked item and it's colour to the move indicator function
+		            <%--  Pass the clicked item and it's colour to the move indicator function --%>
 		            moveIndicator(e.target, colours[links.indexOf(e.target)]);
 		        });
 
-		        // var count = 0;
+		        <%--  var count = 0; --%>
 		        function moveIndicator(item, color) {
 					if (item==null)
 					{
@@ -185,11 +185,11 @@
 		            var distance = textPosition.left - container;
 		             var scroll = pnProductNavContents.scrollLeft;
 		            pnIndicator.style.transform = "translateX(" + (distance + scroll) + "px) scaleX(" + textPosition.width * 0.01 + ")";
-		            // count = count += 100;
-		            // pnIndicator.style.transform = "translateX(" + count + "px)";
+		            <%--  count = count += 100; --%>
+		            <%--  pnIndicator.style.transform = "translateX(" + count + "px)"; --%>
 		            
 		            if (color) {
-		               // pnIndicator.style.backgroundColor = color;  =====여기 색깔 
+		            	<%--  pnIndicator.style.backgroundColor = color;  =====여기 색깔  --%>
 		            }
 		        }
 
@@ -211,13 +211,13 @@
 		            }
 		        }
 
-		        /**
-		         * @fileoverview dragscroll - scroll area by dragging
-		         * @version 0.0.8
-		         * 
-		         * @license MIT, see http://github.com/asvd/dragscroll
-		         * @copyright 2015 asvd <heliosframework@gmail.com> 
-		         */
+		        <%--  
+		         @fileoverview dragscroll - scroll area by dragging
+		         @version 0.0.8
+		          
+		         @license MIT, see http://github.com/asvd/dragscroll
+		         @copyright 2015 asvd <heliosframework@gmail.com> 
+		         --%>
 
 
 		        (function (root, factory) {
@@ -249,7 +249,7 @@
 		                    _window[removeEventListener](mousemove, el.mm, 0);
 		                }
 
-		                // cloning into array since HTMLCollection is updated dynamically
+		                <%--  cloning into array since HTMLCollection is updated dynamically --%>
 		                dragged = [].slice.call(_document.getElementsByClassName('dragscroll'));
 		                for (i = 0; i < dragged.length;) {
 		                    (function(el, lastClientX, lastClientY, pushed, scroller, cont){
@@ -305,7 +305,7 @@
 	</script>
 <script src="${contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 
-<!-- 모달창 가상돔 스크립트 -->
+<%--  모달창 가상돔 스크립트  --%>
 <script  type="text/javascript">
 
 	$(document).ready(function(){
@@ -319,7 +319,7 @@
 		str +="<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
 		str +="</div>";
 		str +="<div class='modal-body'>";
-		//이곳이 내용들어가는 공간
+		<%-- 이곳이 내용들어가는 공간 --%>
 		str +="</div>";
 		str +="<div class='modal-footer'>";
 		str +="<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>";

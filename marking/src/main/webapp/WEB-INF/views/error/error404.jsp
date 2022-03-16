@@ -113,7 +113,7 @@ svg {
   <div class="buttons-con">
     <div class="action-link-wrap">
       <a onclick="history.back(-1)" class="link-button link-back-button">Go Back</a>
-      <a href="/marking.co.kr" class="link-button">Go to Home Page</a>
+      <a href="${contextPath}" class="link-button">Go to Home Page</a>
     </div>
   </div>
 </div>

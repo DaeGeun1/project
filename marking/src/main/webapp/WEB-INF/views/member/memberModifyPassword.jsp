@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-	<!-- 헤더 시작 -->
-	<!-- ======================================================== -->
+	<%-- 헤더 시작 --%>
+	<%-- ======================================================== --%>
 	<%@ include file="../common/header.jsp"%>
-	<!-- ======================================================== -->
-	<!-- 헤더 끝 -->
+	<%-- ======================================================== --%>
+	<%-- 헤더 끝 --%>
 
 
-	<!-- 바디 시작 -->
-	<!-- ======================================================== -->
+	<%-- 바디 시작 --%>
+	<%-- ======================================================== --%>
 
 	<div class="container">
 		<div class="row">
@@ -56,15 +56,15 @@
 	
 
 
-	<!-- ======================================================== -->
-	<!-- 바디 끝 -->
+	<%-- ======================================================== --%>
+	<%-- 바디 끝 --%>
 
 
-	<!-- 푸터 시작 -->
-	<!-- ======================================================== -->
+	<%-- 푸터 시작 --%>
+	<%-- ======================================================== --%>
 	<%@ include file="../common/footer.jsp"%>
-	<!-- ======================================================== -->
-	<!-- 푸터 끝 -->
+	<%-- ======================================================== --%>
+	<%-- 푸터 끝 --%>
 	
 
 	
@@ -75,9 +75,9 @@
 		
 	$(document).ready(function(){
 		
-		var blank_reg = /[\s]/g;              // 공백체크
+		var blank_reg = /[\s]/g;             <%-- 공백체크 --%>
 		
-		//비밀번호 유효성 체크   8~16자 영어 숫자 특수문자(!@#$?) 포함 
+		<%-- 비밀번호 유효성 체크   8~16자 영어 숫자 특수문자(!@#$?) 포함  --%>
 		var password_reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[!@#$?])(?!.*[^a-zA-z0-9!@#$?]).{8,16}$/; 
 		
 		
@@ -102,32 +102,32 @@
 			var new_password = $("#new_password").val();
 			var new_password_check = $("#new_password_check").val();
 			
-			if(new_password == "") {                                       			 // 빈칸 유효성 체크
+			if(new_password == "") {                                       			 <%-- 빈칸 유효성 체크 --%>
 				document.getElementById("new_password").classList.add("is-invalid");
 				document.getElementById("span-new-password").innerText="비밀번호를 입력해주세요.";
-			} else if (blank_reg.test(new_password)) {                      		 // 공백 유효성 체크
+			} else if (blank_reg.test(new_password)) {                      		 <%-- 공백 유효성 체크 --%>
 				document.getElementById("new_password").classList.add("is-invalid");
 				document.getElementById("span-new-password").innerText="공백이 존재합니다.";
-			} else if (!(password_reg.test(new_password))) {                         // 영어 숫자 특수문자(!@#$?) 조합 8~16자
+			} else if (!(password_reg.test(new_password))) {                         <%-- 영어 숫자 특수문자(!@#$?) 조합 8~16자 --%>
 				document.getElementById("new_password").classList.add("is-invalid");
 				document.getElementById("span-new-password").innerText="영문/숫자/특수문자(!@#$?)가 포함된 8~16자로 이루어져야합니다.";
-			} else if (password_reg.test(new_password)) {                            // 통과
+			} else if (password_reg.test(new_password)) {                            <%-- 통과 --%>
 				document.getElementById("new_password").classList.remove("is-invalid");
 				document.getElementById("span-new-password").innerText="　";
-			} else {                                              				 // 유효성 못잡은거 있을때 에러
+			} else {                                              				 <%-- 유효성 못잡은거 있을때 에러 --%>
 				document.getElementById("new_password").classList.add("is-invalid");
 				document.getElementById("span-new-password").innerText="에러입니다 유효성체크코드를 확인해주세요";
 			}
 			
-			if(new_password_check != "") { // 비밀번호 체크 입력후 다시 비밀번호 창에 비번 변경할때 다시 비번확인과 비교하는 로직
+			if(new_password_check != "") { <%-- 비밀번호 체크 입력후 다시 비밀번호 창에 비번 변경할때 다시 비번확인과 비교하는 로직 --%>
 				
 				if (new_password_check != new_password) {
 					document.getElementById("new_password_check").classList.add("is-invalid");
 					document.getElementById("span-new-password-check").innerText="비밀번호가 일치하지않습니다.";
-				} else if (new_password_check == new_password) {                            		// 통과
+				} else if (new_password_check == new_password) {                            		<%-- 통과 --%>
 					document.getElementById("new_password_check").classList.remove("is-invalid");
 					document.getElementById("span-new-password-check").innerText="　";
-				}  else {                                              				 		// 유효성 못잡은거 있을때 에러
+				}  else {                                              				 		<%-- 유효성 못잡은거 있을때 에러 --%>
 					document.getElementById("new_password_check").classList.add("is-invalid");
 					document.getElementById("span-new-password-check").innerText="에러입니다 유효성체크코드를 확인해주세요";
 				}
@@ -138,19 +138,19 @@
 			var new_password = $("#new_password").val();
 			var new_password_check = $("#new_password_check").val();
 			
-			if(new_password_check == "") {                                       			 // 빈칸 유효성 체크
+			if(new_password_check == "") {                                       			<%-- 빈칸 유효성 체크 --%>
 				document.getElementById("new_password_check").classList.add("is-invalid");
 				document.getElementById("span-new-password-check").innerText="비밀번호확인을 입력해주세요.";
-			} else if (blank_reg.test(new_password_check)) {                      		     // 공백 유효성 체크
+			} else if (blank_reg.test(new_password_check)) {                      		     <%-- 공백 유효성 체크 --%>
 				document.getElementById("new_password_check").classList.add("is-invalid");
 				document.getElementById("span-new-password-check").innerText="공백이 존재합니다.";
-			} else if (new_password_check != new_password) {                                  // 비밀번호 비교
+			} else if (new_password_check != new_password) {                                  <%-- 비밀번호 비교 --%>
 				document.getElementById("new_password_check").classList.add("is-invalid");
 				document.getElementById("span-new-password-check").innerText="비밀번호가 일치하지않습니다.";
-			} else if (new_password_check == new_password) {                            		// 통과
+			} else if (new_password_check == new_password) {                            		<%-- 통과 --%>
 				document.getElementById("new_password_check").classList.remove("is-invalid");
 				document.getElementById("span-new-password-check").innerText="　";
-			}  else {                                              				 		// 유효성 못잡은거 있을때 에러
+			}  else {                                              				 		<%-- 유효성 못잡은거 있을때 에러 --%>
 				document.getElementById("new_password_check").classList.add("is-invalid");
 				document.getElementById("span-new-password-check").innerText="에러입니다 유효성체크코드를 확인해주세요";
 			}

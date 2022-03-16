@@ -90,7 +90,7 @@ keyframes alarmOn {to { fill:darkred;
           </svg>
 	<h1>You are not allowed to enter here</h1>
 	<h2>
-		Go <a href="/marking.co.kr">Home!</a>
+		Go <a href="${contextPath}">Home!</a>
 	</h2>
 	<script type="text/javascript">
 	var root = document.documentElement;

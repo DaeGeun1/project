@@ -59,12 +59,12 @@ public class EmailController {
 
 		if (memberInfo == null) {
 			rttr.addFlashAttribute("failMessage", "일치하는 정보의 계정이 없습니다.");
-			return "redirect:/marking.co.kr/member/find";
+			return "redirect:/member/find";
 		} else {
 			try {
 				emailService.sendPasswordMail(mDto); // dto (메일관련 정보)를 sendMail에 저장함
 				rttr.addFlashAttribute("successMessage", "해당하는 메일로 인증번호가 전송되었습니다.");
-				return "redirect:/marking.co.kr/login";
+				return "redirect:/login";
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
