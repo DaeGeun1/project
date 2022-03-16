@@ -164,9 +164,6 @@
 	 			success : function(result ) {
 	 				showMiddleCategory(result);  <%-- 중분류 변경 --%>
 	 			},
-	 			fail : function(result) {
-	 				alert("실패");
-	 			},
 	 			error : function(request, error) {
 	 				alert("에러");
 	 				alert("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -189,9 +186,6 @@
 	 			success : function(result ) {
 	 				showSmallCategory(result); <%--  소분류 변경 --%>
 	 				
-	 			},
-	 			fail : function(result) {
-	 				alert("실패");
 	 			},
 	 			error : function(request, error) {
 	 				alert("에러");

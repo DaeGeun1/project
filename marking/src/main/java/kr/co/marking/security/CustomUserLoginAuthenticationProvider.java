@@ -10,6 +10,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import kr.co.marking.member.domain.MemberDTO;
+import kr.co.marking.member.service.IMemberService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -21,23 +23,33 @@ public class CustomUserLoginAuthenticationProvider implements AuthenticationProv
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;       //암호화 시키는 클래스
 	
+	@Autowired
+	private IMemberService memberService;
+	
 	//인증하는 로직
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		
+		log.info("==================== CustomUserLoginAuthenticationProvider ====================");
 		
 		String id = authentication.getName();
 		String password = (String)authentication.getCredentials();
 		
 		UserDetails userInfo = userDetailsService.loadUserByUsername(id); //db에서 값 가져오기
+		MemberDTO mDto = memberService.selectMemberInfo(id);
 		
-		if (userInfo == null) {  // 계정이 존재하지 않음
-
+		
+		//계정이 존재하지않음 or 탈퇴한 계정
+		if(userInfo == null || "Y".equals(mDto.getMember_withdraw())) { 
 			throw new AuthenticationServiceException(id);
-
-		} else if (!passwordEncoder.matches(password, userInfo.getPassword())) {  // 비밀번호 불일치
-
+		} 
+		
+		//계정비번이 틀린경우
+		else if( !passwordEncoder.matches(password, userInfo.getPassword())){
+			System.out.println(!passwordEncoder.matches(password, userInfo.getPassword()));
+			System.out.println(password);
+			System.out.println("여길들어온다고?");
 			throw new BadCredentialsException(id);
-
 		}
 		
 

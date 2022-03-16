@@ -112,9 +112,6 @@
 			success : function(result) {
 				$("#form-login").submit();
 			}, 
-			fail : function(data) {
-				alert("실패");
-			}, 
 			error : function(request, error) {
 				alert("에러");
 				alert("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);

@@ -393,9 +393,6 @@
 							fnModal("ajax success but error");
 						}
 					},
-					fail : function() {
-						fnModal("실패")
-					},
 					error : function() {
 						fnModal("에러");
 					}
@@ -555,10 +552,7 @@
 								alert("ajax success but error"); 
 							}
 							
-						}, 
-						fail : function(data) {
-							fnModal("실패");
-						}, 
+						},
 						error : function(request, error) {
 							fnModal("에러");
 							fnModal("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -616,10 +610,7 @@
 							fnModal("ajax success but error");   
 						}
 						
-					}, 
-					fail : function(data) {
-						fnModal("실패");
-					}, 
+					},
 					error : function(request, error) {
 						fnModal("에러");
 						fnModal("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);

@@ -27,23 +27,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 		log.info("==================== CustomUserDetailsService ====================");
 		log.info("입력받은 아이디 : " + member_id);
 		
-		CustomUser customUser = new CustomUser();
 		
 		// user_id means user_id
 		MemberDTO mDto = memberMapper.selectMemberInfo(member_id);
 		
-		if(mDto == null || "Y".equals(mDto.getMember_withdraw())) {
-			customUser = null;
-		} else {
-			
-			customUser.setUsername(mDto.getMember_id());
-			customUser.setPassword(mDto.getMember_password());
-			
-			customUser.setAuthorities(memberMapper.selectMemberAuthorities(member_id));
-			
-		}
 		
-		return customUser;
+		return mDto == null ? null : new CustomUser(mDto);
 	}
 	
 }

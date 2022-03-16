@@ -131,8 +131,7 @@
 	 		
 	 	});
 	--%>
-	 
-	 $(".btn-delete").on("click",function(e){
+	 $(document).on("click",".btn-delete",function(e){
 		 
 		 e.preventDefault();
 		 

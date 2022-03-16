@@ -1,98 +1,40 @@
 package kr.co.marking.security.domain;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.User;
 
-import lombok.ToString;
+import kr.co.marking.member.domain.MemberDTO;
+import lombok.extern.log4j.Log4j;
 
-
-/* Spring Security 로그인을 위한 UserDetails VO 객체 */
-@ToString
-public class CustomUser implements UserDetails {
+@Log4j
+public class CustomUser extends User {
 	
 	
-	//안쓰면 뭔가 에러남
+	
 	private static final long serialVersionUID = 1L;
-
 	
-	private String username; // ID
-	private String password; // PW
-	private List<GrantedAuthority> authorities;
-	 
-	// setter
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	// setter
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	// setter
-	public void setAuthorities(List<String> authList) {
-
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
-		for (int i = 0; i < authList.size(); i++) {
-			authorities.add(new SimpleGrantedAuthority(authList.get(i)));
-		}
-
-		this.authorities = authorities;
+	private MemberDTO mDto;
+	
+	
+	public CustomUser(String username, String password, boolean enabled, boolean accountNonExpired,
+			boolean credentialsNonExpired, boolean accountNonLocked,
+			Collection<? extends GrantedAuthority> authorities) {
+		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 	}
 	
-	// 권한
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public CustomUser(MemberDTO mDto) {
 		
-		return authorities;
-	}
-
-	@Override
-	public String getPassword() {
+		super(mDto.getMember_id(), mDto.getMember_password(), mDto.getAuthList().stream()
+			 .map(auth -> new SimpleGrantedAuthority(auth.getMember_authority())).collect(Collectors.toList()));
 		
-		return password;
-	}
-
-	@Override
-	public String getUsername() {
-
-		return username;
+		this.mDto = mDto;
 	}
 	
 	
-	// 계정 만료되었는치 체크
-	@Override
-	public boolean isAccountNonExpired() {
-		
-		return true;
-	}
-	
-	// 계정이 잠겨있는지
-	@Override
-	public boolean isAccountNonLocked() {
-
-		return true;
-	}
-	
-	// 패스워드가 만료되었는지
-	@Override
-	public boolean isCredentialsNonExpired() {
-
-		return true;
-	}
-	
-	//계정이 활정화 되어있는지
-	@Override
-	public boolean isEnabled() {
-
-		return true;
-	}
 	
 	
 }

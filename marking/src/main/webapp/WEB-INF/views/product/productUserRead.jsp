@@ -290,9 +290,6 @@
 				success : function(data) {
 					fnModal(data)
 				},
-				fail : function() {
-				 	fnModal("실패")
-				},
 				error : function(request, error) {
 					fnModal("에러");
 					fnModal("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
